@@ -33,7 +33,7 @@
                         <p class="text">Management User</p>
                     </a>
                 </li>
-                <li class="nav-header">ADMIN</li>
+                <!-- <li class="nav-header">ADMIN</li> -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-clone"></i>
@@ -47,6 +47,12 @@
                             <a href="<?php echo base_url('admin/mst_cabang'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Master Cabang</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('admin/mst_cabang'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Master Bank</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -75,14 +81,14 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">DATA</li>
+
                 <li class="nav-item">
                     <a href="<?php echo base_url('admin/perjalanan'); ?>" class="nav-link">
                         <i class="nav-icon fas fa-map"></i>
                         <p class="text">Data Perjalanan</p>
                     </a>
                 </li>
-                <li class="nav-header">END</li>
+
                 <li class="nav-item">
                     <a href="<?php echo base_url('auth/logout'); ?>" id="tombol-logout" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt text-danger"></i>

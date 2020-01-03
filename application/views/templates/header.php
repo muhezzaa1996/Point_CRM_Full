@@ -47,7 +47,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link"><?php echo $title; ?></a>
+                    <a href="#" class="nav-link"> Level Akses : <strong><?php echo $user['level']; ?></strong></a>
                 </li>
             </ul>
 
@@ -68,7 +68,7 @@
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        Level Akses : <strong><?php echo $user['level']; ?></strong>
+                        <!-- Level Akses : <strong><?php echo $user['level']; ?></strong> -->
                     </a>
                 </li>
             </ul>

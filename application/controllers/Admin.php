@@ -121,7 +121,7 @@ class Admin extends CI_Controller
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_admin', $data);
-            $this->load->view('admin/man_user', $data);
+            $this->load->view('admin/data/man_user', $data);
             $this->load->view('templates/footer');
         } else {
             $data = array(
@@ -189,7 +189,7 @@ class Admin extends CI_Controller
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_admin', $data);
-            $this->load->view('admin/mst_kendaraan', $data);
+            $this->load->view('admin/data/mst_kendaraan', $data);
             $this->load->view('templates/footer');
         } else {
             $data = array(
@@ -237,7 +237,7 @@ class Admin extends CI_Controller
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_admin', $data);
-            $this->load->view('admin/mst_tujuan', $data);
+            $this->load->view('admin/data/mst_tujuan', $data);
             $this->load->view('templates/footer');
         } else {
             $data = array(
@@ -292,7 +292,7 @@ class Admin extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_admin', $data);
-        $this->load->view('admin/mst_spv', $data);
+        $this->load->view('admin/data/mst_spv', $data);
         $this->load->view('templates/footer');
     }
 
