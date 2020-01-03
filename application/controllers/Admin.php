@@ -309,4 +309,31 @@ class Admin extends CI_Controller
         $this->load->view('admin/perjalanan', $data);
         $this->load->view('templates/footer');
     }
+
+    public function mst_cabang()
+    {
+        $this->form_validation->set_rules('nama_cabang', 'Nama Cabang', 'required|trim|is_unique[mst_cabang.nama_cabang]', array(
+            'is_unique' => 'Nama Cabang sudah ada'
+        ));
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Cabang';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['cabang'] = $this->db->get('mst_cabang')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_admin', $data);
+            $this->load->view('admin/data/mst_cabang', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_tujuan' => $this->input->post('nama_tujuan', true),
+                'kota' => $this->input->post('kota', true),
+                'jarak' => $this->input->post('jarak', true),
+            );
+            $this->db->insert('mst_tujuan', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('admin/mst_tujuan');
+        }
+    }
 }
