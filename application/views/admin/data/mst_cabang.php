@@ -55,7 +55,7 @@
                                             <td><?php echo $i++; ?></td>
                                             <td><?php echo $lu['kode_cabang']; ?></td>
                                             <td><?php echo $lu['nama_cabang']; ?></td>
-                                            <td><?php echo $lu['no_telp_cabang']; ?></td>
+                                            <td><?php echo $lu['no_telp_cab']; ?></td>
                                             <td><?php echo $lu['manager']; ?></td>
                                             <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_cabang']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
                                             <td><a href="<?php echo base_url('admin/del_cabang/') . $lu['id_cabang']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
@@ -83,18 +83,26 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/mst_kendaraan'); ?>" method="post">
+                    <form action="<?php echo base_url('admin/mst_cabang'); ?>" method="post">
                         <div class="form-group">
                             <label>Kode Cabang</label>
-                            <input type="text" class="form-control form-control-sm" name="kode_cabang" readonly>
+                            <input type="text" class="form-control form-control-sm" name="kode_cabang" value="<?php echo $kode_cabang; ?>" readonly>
                         </div>
                         <div class="form-group">
-                            <label>No Polisi</label>
-                            <input type="text" class="form-control form-control-sm" name="nopol" required>
+                            <label>Nama Cabang</label>
+                            <input type="text" class="form-control form-control-sm" name="nama_cabang" required>
                         </div>
                         <div class="form-group">
-                            <label>Bahan Bakar</label>
-                            <input type="text" class="form-control form-control-sm" name="bbm" required>
+                            <label>Alamat</label>
+                            <input type="text" class="form-control form-control-sm" name="alamat_cabang" required>
+                        </div>
+                        <div class="form-group">
+                            <label>No Telp</label>
+                            <input type="number" class="form-control form-control-sm" name="no_telp_cab" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Manager</label>
+                            <input type="text" class="form-control form-control-sm" name="manager" required>
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
@@ -117,22 +125,30 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/edit_kendaraan'); ?>" method="post">
+                    <form action="<?php echo base_url('admin/mst_cabang'); ?>" method="post">
                         <div class="form-group">
-                            <label>Nama Kendaraan</label>
-                            <input type="hidden" name="id_kendaraan" id="id_kendaraan">
-                            <input type="text" class="form-control form-control-sm" name="nama_kendaraan" id="nama_kendaraan" required>
+                            <label>Kode Cabang</label>
+                            <input type="text" name="id_kendaraan" id="id_kendaraan">
+                            <input type="text" class="form-control form-control-sm" readonly>
                         </div>
                         <div class="form-group">
-                            <label>No Polisi</label>
-                            <input type="text" class="form-control form-control-sm" name="nopol" id="nopol" required>
+                            <label>Nama Cabang</label>
+                            <input type="text" class="form-control form-control-sm" name="nama_cabang" required>
                         </div>
                         <div class="form-group">
-                            <label>Bahan Bakar</label>
-                            <input type="text" class="form-control form-control-sm" name="bbm" id="bbm" required>
+                            <label>Alamat</label>
+                            <input type="text" class="form-control form-control-sm" name="alamat_cabang" required>
+                        </div>
+                        <div class="form-group">
+                            <label>No Telp</label>
+                            <input type="number" class="form-control form-control-sm" name="no_telp_cab" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Manager</label>
+                            <input type="text" class="form-control form-control-sm" name="manager" required>
                         </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Simpan Perubahan</button>
+                            <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                         </div>
                     </form>

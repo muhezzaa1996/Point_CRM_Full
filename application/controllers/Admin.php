@@ -320,6 +320,7 @@ class Admin extends CI_Controller
             $data['title'] = 'Data Cabang';
             $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
             $data['cabang'] = $this->db->get('mst_cabang')->result_array();
+            $data['kode_cabang'] = $this->admin->getKodeCabang();
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_admin', $data);
@@ -327,13 +328,15 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $data = array(
-                'nama_tujuan' => $this->input->post('nama_tujuan', true),
-                'kota' => $this->input->post('kota', true),
-                'jarak' => $this->input->post('jarak', true),
+                'kode_cabang' => $this->input->post('kode_cabang', true),
+                'nama_cabang' => $this->input->post('nama_cabang', true),
+                'alamat_cabang' => $this->input->post('alamat_cabang', true),
+                'no_telp_cab' => $this->input->post('no_telp_cab', true),
+                'manager' => $this->input->post('manager', true)
             );
-            $this->db->insert('mst_tujuan', $data);
+            $this->db->insert('mst_cabang', $data);
             $this->session->set_flashdata('message', 'Tambah data');
-            redirect('admin/mst_tujuan');
+            redirect('admin/mst_cabang');
         }
     }
 }

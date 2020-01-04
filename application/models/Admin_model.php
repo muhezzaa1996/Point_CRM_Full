@@ -84,4 +84,22 @@ class Admin_model extends CI_model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    function getKodeCabang()
+    {
+        $this->db->select('RIGHT(kode_cabang,4) as kode', FALSE);
+        $this->db->order_by('id_cabang', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('mst_cabang');
+        if ($query->num_rows() <> 0) {
+
+            $data = $query->row();
+            $kode = intval($data->kode) + 1;
+        } else {
+            $kode = 1;
+        }
+        $kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT);
+        $kodejadi = "CAB-" . date('dmY') . "-" . $kodemax;
+        return $kodejadi;
+    }
 }
