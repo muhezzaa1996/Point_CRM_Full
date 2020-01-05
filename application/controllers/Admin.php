@@ -339,4 +339,10 @@ class Admin extends CI_Controller
             redirect('admin/mst_cabang');
         }
     }
+
+    public function get_cabang()
+    {
+        $id_cabang = $_POST['id_cabang'];
+        echo json_encode($this->db->get_where('mst_cabang', ['id_cabang' => $id_cabang])->row_array());
+    }
 }

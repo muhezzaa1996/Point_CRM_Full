@@ -121,31 +121,31 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Kendaraan</h4>
+                <h4 class="modal-title">Edit Cabang</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
                     <form action="<?php echo base_url('admin/mst_cabang'); ?>" method="post">
                         <div class="form-group">
                             <label>Kode Cabang</label>
-                            <input type="text" name="id_kendaraan" id="id_kendaraan">
-                            <input type="text" class="form-control form-control-sm" readonly>
+                            <input type="hidden" name="id_cabang" id="id_cabang">
+                            <input type="text" class="form-control form-control-sm" id="kode_cabang" readonly>
                         </div>
                         <div class="form-group">
                             <label>Nama Cabang</label>
-                            <input type="text" class="form-control form-control-sm" name="nama_cabang" required>
+                            <input type="text" class="form-control form-control-sm" name="nama_cabang" id="nama_cabang" required>
                         </div>
                         <div class="form-group">
                             <label>Alamat</label>
-                            <input type="text" class="form-control form-control-sm" name="alamat_cabang" required>
+                            <input type="text" class="form-control form-control-sm" name="alamat_cabang" id="alamat_cabang" required>
                         </div>
                         <div class="form-group">
                             <label>No Telp</label>
-                            <input type="number" class="form-control form-control-sm" name="no_telp_cab" required>
+                            <input type="number" class="form-control form-control-sm" name="no_telp_cab" id="no_telp_cab" required>
                         </div>
                         <div class="form-group">
                             <label>Manager</label>
-                            <input type="text" class="form-control form-control-sm" name="manager" required>
+                            <input type="text" class="form-control form-control-sm" name="manager" id="manager" required>
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
@@ -162,19 +162,21 @@
 
 <script>
     $('.tombol-edit').on('click', function() {
-        const id_kendaraan = $(this).data('id');
+        const id_cabang = $(this).data('id');
         $.ajax({
-            url: '<?php echo base_url('admin/get_kendaraan'); ?>',
+            url: '<?php echo base_url('admin/get_cabang'); ?>',
             data: {
-                id_kendaraan: id_kendaraan
+                id_cabang: id_cabang
             },
             method: 'post',
             dataType: 'json',
             success: function(data) {
-                $('#nama_kendaraan').val(data.nama_kendaraan);
-                $('#nopol').val(data.nopol);
-                $('#bbm').val(data.bbm);
-                $('#id_kendaraan').val(data.id_kendaraan);
+                $('#kode_cabang').val(data.kode_cabang);
+                $('#nama_cabang').val(data.nama_cabang);
+                $('#alamat_cabang').val(data.alamat_cabang);
+                $('#no_telp_cab').val(data.no_telp_cab);
+                $('#manager').val(data.manager);
+                $('#id_cabang').val(data.id_cabang);
             }
         });
     });
