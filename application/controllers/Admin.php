@@ -345,4 +345,47 @@ class Admin extends CI_Controller
         $id_cabang = $_POST['id_cabang'];
         echo json_encode($this->db->get_where('mst_cabang', ['id_cabang' => $id_cabang])->row_array());
     }
+
+    public function edit_cabang()
+    {
+        $id_cabang = $this->input->post('id_cabang', true);
+        $nama_cabang = $this->input->post('nama_cabang', true);
+        $alamat_cabang = $this->input->post('alamat_cabang', true);
+        $no_telp_cab = $this->input->post('no_telp_cab', true);
+        $manager = $this->input->post('manager', true);
+        $this->db->set('nama_cabang', $nama_cabang);
+        $this->db->set('alamat_cabang', $alamat_cabang);
+        $this->db->set('no_telp_cab', $no_telp_cab);
+        $this->db->set('manager', $manager);
+        $this->db->where('id_cabang', $id_cabang);
+        $this->db->update('mst_cabang');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('admin/mst_cabang');
+    }
+
+    public function mst_bank()
+    {
+        $this->form_validation->set_rules('id_bank', 'ID Bank', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Bank';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['bank'] = $this->db->get('mst_bank')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_admin', $data);
+            $this->load->view('admin/data/mst_bank', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_bank' => $this->input->post('nama_bank', true),
+                'no_rek' => $this->input->post('no_rek', true),
+                'cabang' => $this->input->post('cabang', true),
+                'kota' => $this->input->post('kota', true)
+            );
+            $this->db->insert('mst_bank', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('admin/mst_bank');
+        }
+    }
 }

@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url('admin/mst_cabang'); ?>" class="nav-link">
+                            <a href="<?php echo base_url('admin/mst_bank'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Master Bank</p>
                             </a>
@@ -61,12 +61,12 @@
                                 <p>Master Kendaraan</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_tujuan'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Master Tujuan</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_driver'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
