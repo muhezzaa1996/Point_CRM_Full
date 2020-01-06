@@ -365,7 +365,7 @@ class Admin extends CI_Controller
 
     public function mst_bank()
     {
-        $this->form_validation->set_rules('id_bank', 'ID Bank', 'required|trim');
+        $this->form_validation->set_rules('nama_bank', 'Nama Bank', 'required|trim');
 
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'Data Bank';
@@ -387,5 +387,28 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message', 'Tambah data');
             redirect('admin/mst_bank');
         }
+    }
+
+    public function get_bank()
+    {
+        $id_bank = $_POST['id_bank'];
+        echo json_encode($this->db->get_where('mst_bank', ['id_bank' => $id_bank])->row_array());
+    }
+
+    public function edit_bank()
+    {
+        $id_bank = $this->input->post('id_bank', true);
+        $nama_bank = $this->input->post('nama_bank', true);
+        $no_rek = $this->input->post('no_rek', true);
+        $cabang = $this->input->post('cabang', true);
+        $kota = $this->input->post('kota', true);
+        $this->db->set('nama_bank', $nama_bank);
+        $this->db->set('no_rek', $no_rek);
+        $this->db->set('cabang', $cabang);
+        $this->db->set('kota', $kota);
+        $this->db->where('id_bank', $id_bank);
+        $this->db->update('mst_bank');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('admin/mst_bank');
     }
 }

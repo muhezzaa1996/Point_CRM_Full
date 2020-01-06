@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-header">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-user">
-                            Tambah Cabang
+                            Tambah Bank
                         </button>
                     </div>
                     <div class="card-body">
@@ -41,26 +41,24 @@
                             <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                 <thead>
                                     <th>#</th>
-                                    <th>Kode Cabang</th>
-                                    <th>Nama Cabang</th>
-                                    <th>Alamat</th>
-                                    <th>No Telp</th>
-                                    <th>Manager</th>
+                                    <th>Nama Bank</th>
+                                    <th>No Rekening</th>
+                                    <th>Cabang</th>
+                                    <th>Kota</th>
                                     <th>Edit</th>
                                     <th>Hapus</th>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    <?php foreach ($cabang as $lu) : ?>
+                                    <?php foreach ($bank as $lu) : ?>
                                         <tr>
                                             <td><?php echo $i++; ?></td>
-                                            <td><?php echo $lu['kode_cabang']; ?></td>
-                                            <td><?php echo $lu['nama_cabang']; ?></td>
-                                            <td><?php echo $lu['alamat_cabang']; ?></td>
-                                            <td><?php echo $lu['no_telp_cab']; ?></td>
-                                            <td><?php echo $lu['manager']; ?></td>
-                                            <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_cabang']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
-                                            <td><a href="<?php echo base_url('admin/del_cabang/') . $lu['id_cabang']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
+                                            <td><?php echo $lu['nama_bank']; ?></td>
+                                            <td><?php echo $lu['no_rek']; ?></td>
+                                            <td><?php echo $lu['cabang']; ?></td>
+                                            <td><?php echo $lu['kota']; ?></td>
+                                            <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_bank']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
+                                            <td><a href="<?php echo base_url('admin/del_bank/') . $lu['id_bank']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -81,30 +79,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Cabang</h4>
+                <h4 class="modal-title">Tambah Bank</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/mst_cabang'); ?>" method="post">
+                    <form action="<?php echo base_url('admin/mst_bank'); ?>" method="post">
                         <div class="form-group">
-                            <label>Kode Cabang</label>
-                            <input type="text" class="form-control form-control-sm" name="kode_cabang" value="<?php echo $kode_cabang; ?>" readonly>
+                            <label>Nama Bank</label>
+                            <input type="text" class="form-control form-control-sm" name="nama_bank" required>
                         </div>
                         <div class="form-group">
-                            <label>Nama Cabang</label>
-                            <input type="text" class="form-control form-control-sm" name="nama_cabang" required>
+                            <label>No Rekening</label>
+                            <input type="number" class="form-control form-control-sm" name="no_rek" required>
                         </div>
                         <div class="form-group">
-                            <label>Alamat</label>
-                            <input type="text" class="form-control form-control-sm" name="alamat_cabang" required>
+                            <label>Cabang</label>
+                            <input type="text" class="form-control form-control-sm" name="cabang" required>
                         </div>
                         <div class="form-group">
-                            <label>No Telp</label>
-                            <input type="number" class="form-control form-control-sm" name="no_telp_cab" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Manager</label>
-                            <input type="text" class="form-control form-control-sm" name="manager" required>
+                            <label>Kota</label>
+                            <input type="text" class="form-control form-control-sm" name="kota" required>
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
@@ -123,34 +117,30 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Cabang</h4>
+                <h4 class="modal-title">Edit Bank</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/edit_cabang'); ?>" method="post">
-                        <div class="form-group">
-                            <label>Kode Cabang</label>
-                            <input type="hidden" name="id_cabang" id="id_cabang">
-                            <input type="text" class="form-control form-control-sm" id="kode_cabang" readonly>
-                        </div>
+                    <form action="<?php echo base_url('admin/edit_bank'); ?>" method="post">
                         <div class="form-group">
                             <label>Nama Cabang</label>
-                            <input type="text" class="form-control form-control-sm" name="nama_cabang" id="nama_cabang" required>
+                            <input type="hidden" name="id_bank" id="id_bank">
+                            <input type="text" class="form-control form-control-sm" name="nama_bank" id="nama_bank" required>
                         </div>
                         <div class="form-group">
-                            <label>Alamat</label>
-                            <input type="text" class="form-control form-control-sm" name="alamat_cabang" id="alamat_cabang" required>
+                            <label>No Rekening</label>
+                            <input type="number" class="form-control form-control-sm" name="no_rek" id="no_rek" required>
                         </div>
                         <div class="form-group">
-                            <label>No Telp</label>
-                            <input type="number" class="form-control form-control-sm" name="no_telp_cab" id="no_telp_cab" required>
+                            <label>Cabang</label>
+                            <input type="text" class="form-control form-control-sm" name="cabang" id="cabang" required>
                         </div>
                         <div class="form-group">
-                            <label>Manager</label>
-                            <input type="text" class="form-control form-control-sm" name="manager" id="manager" required>
+                            <label>Kota</label>
+                            <input type="text" class="form-control form-control-sm" name="kota" id="kota" required>
                         </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
+                            <button type="submit" class="btn btn-primary pull-right">Simpan Perubahan</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                         </div>
                     </form>
@@ -164,21 +154,20 @@
 
 <script>
     $('.tombol-edit').on('click', function() {
-        const id_cabang = $(this).data('id');
+        const id_bank = $(this).data('id');
         $.ajax({
-            url: '<?php echo base_url('admin/get_cabang'); ?>',
+            url: '<?php echo base_url('admin/get_bank'); ?>',
             data: {
-                id_cabang: id_cabang
+                id_bank: id_bank
             },
             method: 'post',
             dataType: 'json',
             success: function(data) {
-                $('#kode_cabang').val(data.kode_cabang);
-                $('#nama_cabang').val(data.nama_cabang);
-                $('#alamat_cabang').val(data.alamat_cabang);
-                $('#no_telp_cab').val(data.no_telp_cab);
-                $('#manager').val(data.manager);
-                $('#id_cabang').val(data.id_cabang);
+                $('#nama_bank').val(data.nama_bank);
+                $('#no_rek').val(data.no_rek);
+                $('#cabang').val(data.cabang);
+                $('#kota').val(data.kota);
+                $('#id_bank').val(data.id_bank);
             }
         });
     });
