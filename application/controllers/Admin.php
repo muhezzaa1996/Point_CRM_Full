@@ -280,7 +280,7 @@ class Admin extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_admin', $data);
-        $this->load->view('admin/mst_driver', $data);
+        $this->load->view('admin/data/mst_driver', $data);
         $this->load->view('templates/footer');
     }
 
