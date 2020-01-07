@@ -61,8 +61,8 @@
                                             <td><?php echo $lu['telp_toko']; ?></td>
                                             <td><?php echo $lu['npwp']; ?></td>
                                             <td><?php echo $lu['diskon']; ?></td>
-                                            <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_cabang']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
-                                            <td><a href="<?php echo base_url('admin/del_cabang/') . $lu['id_cabang']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
+                                            <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_toko']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
+                                            <td><a href="<?php echo base_url('admin/del_toko/') . $lu['id_toko']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -83,30 +83,34 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Cabang</h4>
+                <h4 class="modal-title">Tambah Toko</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/mst_cabang'); ?>" method="post">
+                    <form action="<?php echo base_url('admin/mst_toko'); ?>" method="post">
                         <div class="form-group">
-                            <label>Kode Cabang</label>
-                            <input type="text" class="form-control form-control-sm" name="kode_cabang" value="<?php echo $kode_cabang; ?>" readonly>
+                            <label>Nama Pemilik</label>
+                            <input type="text" class="form-control form-control-sm" name="pemilik" required>
                         </div>
                         <div class="form-group">
-                            <label>Nama Cabang</label>
-                            <input type="text" class="form-control form-control-sm" name="nama_cabang" required>
+                            <label>Nama Toko</label>
+                            <input type="text" class="form-control form-control-sm" name="nama_toko" required>
                         </div>
                         <div class="form-group">
-                            <label>Alamat</label>
-                            <input type="text" class="form-control form-control-sm" name="alamat_cabang" required>
+                            <label>Alamat Toko</label>
+                            <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
                         </div>
                         <div class="form-group">
-                            <label>No Telp</label>
-                            <input type="number" class="form-control form-control-sm" name="no_telp_cab" required>
+                            <label>No Telp Toko</label>
+                            <input type="number" class="form-control form-control-sm" name="telp_toko" required>
                         </div>
                         <div class="form-group">
-                            <label>Manager</label>
-                            <input type="text" class="form-control form-control-sm" name="manager" required>
+                            <label>No NPWP</label>
+                            <input type="number" class="form-control form-control-sm" name="npwp" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Diskon</label>
+                            <input type="number" class="form-control form-control-sm" name="diskon" required>
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
@@ -125,34 +129,38 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Cabang</h4>
+                <h4 class="modal-title">Edit Toko</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/edit_cabang'); ?>" method="post">
+                    <form action="<?php echo base_url('admin/edit_toko'); ?>" method="post">
                         <div class="form-group">
-                            <label>Kode Cabang</label>
-                            <input type="hidden" name="id_cabang" id="id_cabang">
-                            <input type="text" class="form-control form-control-sm" id="kode_cabang" readonly>
+                            <label>Nama Pemilik</label>
+                            <input type="hidden" name="id_toko" id="id_toko">
+                            <input type="text" class="form-control form-control-sm" name="pemilik" id="pemilik" required>
                         </div>
                         <div class="form-group">
-                            <label>Nama Cabang</label>
-                            <input type="text" class="form-control form-control-sm" name="nama_cabang" id="nama_cabang" required>
+                            <label>Nama Toko</label>
+                            <input type="text" class="form-control form-control-sm" name="nama_toko" id="nama_toko" required>
                         </div>
                         <div class="form-group">
-                            <label>Alamat</label>
-                            <input type="text" class="form-control form-control-sm" name="alamat_cabang" id="alamat_cabang" required>
+                            <label>Alamat Toko</label>
+                            <input type="text" class="form-control form-control-sm" name="alamat_toko" id="alamat_toko" required>
                         </div>
                         <div class="form-group">
-                            <label>No Telp</label>
-                            <input type="number" class="form-control form-control-sm" name="no_telp_cab" id="no_telp_cab" required>
+                            <label>No Telp Toko</label>
+                            <input type="number" class="form-control form-control-sm" name="telp_toko" id="telp_toko" required>
                         </div>
                         <div class="form-group">
-                            <label>Manager</label>
-                            <input type="text" class="form-control form-control-sm" name="manager" id="manager" required>
+                            <label>No NPWP</label>
+                            <input type="number" class="form-control form-control-sm" name="npwp" id="npwp" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Diskon</label>
+                            <input type="number" class="form-control form-control-sm" name="diskon" id="diskon" required>
                         </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
+                            <button type="submit" class="btn btn-primary pull-right">Simpan Perubahan</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                         </div>
                     </form>
@@ -166,21 +174,22 @@
 
 <script>
     $('.tombol-edit').on('click', function() {
-        const id_cabang = $(this).data('id');
+        const id_toko = $(this).data('id');
         $.ajax({
-            url: '<?php echo base_url('admin/get_cabang'); ?>',
+            url: '<?php echo base_url('admin/get_toko'); ?>',
             data: {
-                id_cabang: id_cabang
+                id_toko: id_toko
             },
             method: 'post',
             dataType: 'json',
             success: function(data) {
-                $('#kode_cabang').val(data.kode_cabang);
-                $('#nama_cabang').val(data.nama_cabang);
-                $('#alamat_cabang').val(data.alamat_cabang);
-                $('#no_telp_cab').val(data.no_telp_cab);
-                $('#manager').val(data.manager);
-                $('#id_cabang').val(data.id_cabang);
+                $('#pemilik').val(data.pemilik);
+                $('#nama_toko').val(data.nama_toko);
+                $('#alamat_toko').val(data.alamat_toko);
+                $('#telp_toko').val(data.telp_toko);
+                $('#npwp').val(data.npwp);
+                $('#diskon').val(data.diskon);
+                $('#id_toko').val(data.id_toko);
             }
         });
     });

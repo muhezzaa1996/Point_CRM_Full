@@ -44,6 +44,12 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="<?php echo base_url('admin/mst_karyawan'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Master Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_cabang'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Master Cabang</p>
@@ -65,24 +71,6 @@
                             <a href="<?php echo base_url('admin/mst_kendaraan'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Master Kendaraan</p>
-                            </a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a href="<?php echo base_url('admin/mst_tujuan'); ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Master Tujuan</p>
-                            </a>
-                        </li> -->
-                        <li class="nav-item">
-                            <a href="<?php echo base_url('admin/mst_driver'); ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Master Driver</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?php echo base_url('admin/mst_spv'); ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Master Supervisor</p>
                             </a>
                         </li>
                     </ul>

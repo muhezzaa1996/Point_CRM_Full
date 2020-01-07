@@ -439,4 +439,32 @@ class Admin extends CI_Controller
             redirect('admin/mst_toko');
         }
     }
+
+
+    public function get_toko()
+    {
+        $id_toko = $_POST['id_toko'];
+        echo json_encode($this->db->get_where('mst_toko', ['id_toko' => $id_toko])->row_array());
+    }
+
+    public function edit_toko()
+    {
+        $id_toko = $this->input->post('id_toko', true);
+        $pemilik = $this->input->post('pemilik', true);
+        $nama_toko = $this->input->post('nama_toko', true);
+        $alamat_toko = $this->input->post('alamat_toko', true);
+        $telp_toko = $this->input->post('telp_toko', true);
+        $diskon = $this->input->post('diskon', true);
+        $npwp = $this->input->post('npwp', true);
+        $this->db->set('pemilik', $pemilik);
+        $this->db->set('nama_toko', $nama_toko);
+        $this->db->set('alamat_toko', $alamat_toko);
+        $this->db->set('telp_toko', $telp_toko);
+        $this->db->set('diskon', $diskon);
+        $this->db->set('npwp', $npwp);
+        $this->db->where('id_toko', $id_toko);
+        $this->db->update('mst_toko');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('admin/mst_toko');
+    }
 }
