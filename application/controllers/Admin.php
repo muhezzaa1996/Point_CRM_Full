@@ -538,7 +538,7 @@ class Admin extends CI_Controller
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_admin', $data);
-            $this->load->view('admin/data/mst_toko', $data);
+            $this->load->view('admin/data/mst_tarif', $data);
             $this->load->view('templates/footer');
         } else {
             $data = array(
