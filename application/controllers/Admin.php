@@ -411,4 +411,32 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('message', 'Ubah data');
         redirect('admin/mst_bank');
     }
+
+    public function mst_toko()
+    {
+        $this->form_validation->set_rules('diskon', 'Diskon', 'required|trim|greater_than[0]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Toko';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['toko'] = $this->db->get('mst_toko')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_admin', $data);
+            $this->load->view('admin/data/mst_toko', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'pemilik' => $this->input->post('pemilik', true),
+                'nama_toko' => $this->input->post('nama_toko', true),
+                'alamat_toko' => $this->input->post('alamat_toko', true),
+                'telp_toko' => $this->input->post('telp_toko', true),
+                'diskon' => $this->input->post('diskon', true),
+                'npwp' => $this->input->post('npwp', true)
+            );
+            $this->db->insert('mst_toko', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('admin/mst_toko');
+        }
+    }
 }
