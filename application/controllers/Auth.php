@@ -26,10 +26,16 @@ class Auth extends CI_Controller
                         $this->session->set_userdata($data);
                         if ($user['level'] == 'Admin') {
                             redirect('admin');
+                        } elseif ($user['level'] == 'Manager') {
+                            redirect('manager');
+                        } elseif ($user['level'] == 'Gerai') {
+                            redirect('gerai');
                         } elseif ($user['level'] == 'Supervisor') {
                             redirect('spv');
-                        } else {
+                        } elseif ($user['level'] == 'Driver') {
                             redirect('driver');
+                        } else {
+                            redirect('user');
                         }
                     } else {
                         $this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert">Password salah</div>');

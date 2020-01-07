@@ -46,31 +46,37 @@
                         <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_karyawan'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Master Karyawan</p>
+                                <p>Data Karyawan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_cabang'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Master Cabang</p>
+                                <p>Data Cabang</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_bank'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Master Bank</p>
+                                <p>Data Bank</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_toko'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Master Toko</p>
+                                <p>Data Toko</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_kendaraan'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Master Kendaraan</p>
+                                <p>Data Kendaraan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('admin/mst_tarif'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Tarif</p>
                             </a>
                         </li>
                     </ul>

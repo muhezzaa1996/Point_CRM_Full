@@ -467,4 +467,91 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('message', 'Ubah data');
         redirect('admin/mst_toko');
     }
+
+    public function mst_karyawan()
+    {
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[mst_user.username]', array(
+            'is_unique' => 'Username sudah ada'
+        ));
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', array(
+            'matches' => 'Password tidak sama',
+            'min_length' => 'password min 3 karakter'
+        ));
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Karyawan';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['list_user'] = $this->db->get('mst_user')->result_array();
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_admin', $data);
+            $this->load->view('admin/data/mst_karyawan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama' => $this->input->post('nama', true),
+                'email' => $this->input->post('email', true),
+                'hp' => $this->input->post('hp', true),
+                'level' => $this->input->post('level', true),
+                'username' => $this->input->post('username', true),
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'date_created' => date('Y/m/d'),
+                'image' => 'default.jpg',
+                'is_active' => 1
+            );
+            $this->db->insert('mst_user', $data);
+            $this->session->set_flashdata('message', 'Tambah user');
+            redirect('admin/mst_karyawan');
+        }
+    }
+
+    public function proses_edit_karyawan()
+    {
+        $id_user = $this->input->post('id_user');
+        $nama = $this->input->post('nama');
+        $email = $this->input->post('email');
+        $hp = $this->input->post('hp');
+        $level = $this->input->post('level');
+        $is_active = $this->input->post('is_active');
+
+        $this->db->set('nama', $nama);
+        $this->db->set('email', $email);
+        $this->db->set('hp', $hp);
+        $this->db->set('level', $level);
+        $this->db->set('is_active', $is_active);
+
+        $this->db->where('id_user', $id_user);
+        $this->db->update('mst_user');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('admin/mst_karyawan');
+    }
+
+    public function mst_tarif()
+    {
+        $this->form_validation->set_rules('diskon', 'Diskon', 'required|trim|greater_than[0]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Tarif';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['tarif'] = $this->db->get('mst_tarif')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_admin', $data);
+            $this->load->view('admin/data/mst_toko', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'pemilik' => $this->input->post('pemilik', true),
+                'nama_toko' => $this->input->post('nama_toko', true),
+                'alamat_toko' => $this->input->post('alamat_toko', true),
+                'telp_toko' => $this->input->post('telp_toko', true),
+                'diskon' => $this->input->post('diskon', true),
+                'npwp' => $this->input->post('npwp', true)
+            );
+            $this->db->insert('mst_toko', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('admin/mst_toko');
+        }
+    }
 }
