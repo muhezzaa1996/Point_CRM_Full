@@ -79,7 +79,7 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/mst_tarif'); ?>" method="post">
+                    <form action="<?php echo base_url('admin/mst_biaya'); ?>" method="post">
                         <div class="form-group">
                             <label>Nama Biaya Operasional</label>
                             <input type="text" class="form-control form-control-sm" name="nama_biaya" required>
@@ -143,10 +143,8 @@
             method: 'post',
             dataType: 'json',
             success: function(data) {
-                $('#kota_asal').val(data.kota_asal);
-                $('#kota_tujuan').val(data.kota_tujuan);
-                $('#biaya_volume').val(data.biaya_volume);
-                $('#biaya_jarak').val(data.biaya_jarak);
+                $('#nama_biaya').val(data.nama_biaya);
+                $('#jml_biaya').val(data.jml_biaya);
                 $('#id_biaya').val(data.id_biaya);
             }
         });

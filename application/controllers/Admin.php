@@ -580,7 +580,7 @@ class Admin extends CI_Controller
 
     public function mst_biaya()
     {
-        $this->form_validation->set_rules('kota_asal', 'Kota Asal', 'required|trim');
+        $this->form_validation->set_rules('nama_biaya', 'Nama Biaya', 'required|trim');
 
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'Data Biaya Operasional';
@@ -600,5 +600,26 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message', 'Tambah data');
             redirect('admin/mst_biaya');
         }
+    }
+
+    public function get_biaya()
+    {
+        $id_biaya = $_POST['id_biaya'];
+        echo json_encode($this->db->get_where('mst_biaya', ['id_biaya' => $id_biaya])->row_array());
+    }
+
+    public function edit_biaya()
+    {
+        $id_biaya = $this->input->post('id_biaya');
+        $nama_biaya = $this->input->post('nama_biaya');
+        $jml_biaya = $this->input->post('jml_biaya');
+
+        $this->db->set('nama_biaya', $nama_biaya);
+        $this->db->set('jml_biaya', $jml_biaya);
+
+        $this->db->where('id_biaya', $id_biaya);
+        $this->db->update('mst_biaya');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('admin/mst_biaya');
     }
 }
