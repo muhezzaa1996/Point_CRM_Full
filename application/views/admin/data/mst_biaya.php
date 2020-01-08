@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-header">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-user">
-                            Tambah Tarif
+                            Tambah Biaya
                         </button>
                     </div>
                     <div class="card-body">
@@ -41,24 +41,20 @@
                             <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                 <thead>
                                     <th>#</th>
-                                    <th>Kota Asal</th>
-                                    <th>Kota Tujuan</th>
-                                    <th>Tarif Volume</th>
-                                    <th>Tarif Jarak</th>
+                                    <th>Nama Biaya Operasional</th>
+                                    <th>Jumlah Biaya Operasional</th>
                                     <th>Edit</th>
                                     <th>Hapus</th>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    <?php foreach ($tarif as $lu) : ?>
+                                    <?php foreach ($biaya as $lu) : ?>
                                         <tr>
                                             <td><?php echo $i++; ?></td>
-                                            <td><?php echo $lu['kota_asal']; ?></td>
-                                            <td><?php echo $lu['kota_tujuan']; ?></td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_volume']); ?></td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_jarak']); ?></td>
-                                            <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_tarif']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
-                                            <td><a href="<?php echo base_url('admin/del_tarif/') . $lu['id_tarif']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
+                                            <td><?php echo $lu['nama_biaya']; ?></td>
+                                            <td>Rp. <?php echo rupiah($lu['jml_biaya']); ?></td>
+                                            <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_biaya']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
+                                            <td><a href="<?php echo base_url('admin/del_biaya/') . $lu['id_biaya']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -79,26 +75,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Tarif</h4>
+                <h4 class="modal-title">Tambah Biaya</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
                     <form action="<?php echo base_url('admin/mst_tarif'); ?>" method="post">
                         <div class="form-group">
-                            <label>Kota Asal</label>
-                            <input type="text" class="form-control form-control-sm" name="kota_asal" required>
+                            <label>Nama Biaya Operasional</label>
+                            <input type="text" class="form-control form-control-sm" name="nama_biaya" required>
                         </div>
                         <div class="form-group">
-                            <label>Kota Tujuan</label>
-                            <input type="text" class="form-control form-control-sm" name="kota_tujuan" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Tarif Volume (../Kubik)</label>
-                            <input type="number" class="form-control form-control-sm" name="tarif_volume" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Tarif Jarak (../KM)</label>
-                            <input type="number" class="form-control form-control-sm" name="tarif_jarak" required>
+                            <label>Jumlah Biaya Operasional</label>
+                            <input type="number" class="form-control form-control-sm" name="jml_biaya" required>
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
@@ -117,27 +105,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Tarif</h4>
+                <h4 class="modal-title">Edit Biaya</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/edit_tarif'); ?>" method="post">
+                    <form action="<?php echo base_url('admin/edit_biaya'); ?>" method="post">
                         <div class="form-group">
-                            <label>Kota Asal</label>
-                            <input type="hidden" name="id_tarif" id="id_tarif">
-                            <input type="text" class="form-control form-control-sm" name="kota_asal" id="kota_asal" required>
+                            <label>Nama Biaya Operasional</label>
+                            <input type="hidden" name="id_biaya" id="id_biaya">
+                            <input type="text" class="form-control form-control-sm" name="nama_biaya" id="nama_biaya" required>
                         </div>
                         <div class="form-group">
-                            <label>Kota Tujuan</label>
-                            <input type="text" class="form-control form-control-sm" name="kota_tujuan" id="kota_tujuan" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Tarif Volume (../Kubik)</label>
-                            <input type="number" class="form-control form-control-sm" name="tarif_volume" id="tarif_volume" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Tarif Jarak (../KM)</label>
-                            <input type="number" class="form-control form-control-sm" name="tarif_jarak" id="tarif_jarak" required>
+                            <label>Jumlah Biaya Operasional</label>
+                            <input type="number" class="form-control form-control-sm" name="jml_biaya" id="jml_biaya" required>
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
@@ -154,20 +134,20 @@
 
 <script>
     $('.tombol-edit').on('click', function() {
-        const id_tarif = $(this).data('id');
+        const id_biaya = $(this).data('id');
         $.ajax({
-            url: '<?php echo base_url('admin/get_tarif'); ?>',
+            url: '<?php echo base_url('admin/get_biaya'); ?>',
             data: {
-                id_tarif: id_tarif
+                id_biaya: id_biaya
             },
             method: 'post',
             dataType: 'json',
             success: function(data) {
                 $('#kota_asal').val(data.kota_asal);
                 $('#kota_tujuan').val(data.kota_tujuan);
-                $('#tarif_volume').val(data.tarif_volume);
-                $('#tarif_jarak').val(data.tarif_jarak);
-                $('#id_tarif').val(data.id_tarif);
+                $('#biaya_volume').val(data.biaya_volume);
+                $('#biaya_jarak').val(data.biaya_jarak);
+                $('#id_biaya').val(data.id_biaya);
             }
         });
     });

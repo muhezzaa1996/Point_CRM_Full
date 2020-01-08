@@ -529,7 +529,7 @@ class Admin extends CI_Controller
 
     public function mst_tarif()
     {
-        $this->form_validation->set_rules('diskon', 'Diskon', 'required|trim|greater_than[0]');
+        $this->form_validation->set_rules('kota_asal', 'Kota Asal', 'required|trim');
 
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'Data Tarif';
@@ -542,16 +542,63 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $data = array(
-                'pemilik' => $this->input->post('pemilik', true),
-                'nama_toko' => $this->input->post('nama_toko', true),
-                'alamat_toko' => $this->input->post('alamat_toko', true),
-                'telp_toko' => $this->input->post('telp_toko', true),
-                'diskon' => $this->input->post('diskon', true),
-                'npwp' => $this->input->post('npwp', true)
+                'kota_asal' => $this->input->post('kota_asal', true),
+                'kota_tujuan' => $this->input->post('kota_tujuan', true),
+                'tarif_volume' => $this->input->post('tarif_volume', true),
+                'tarif_jarak' => $this->input->post('tarif_jarak', true)
             );
-            $this->db->insert('mst_toko', $data);
+            $this->db->insert('mst_tarif', $data);
             $this->session->set_flashdata('message', 'Tambah data');
-            redirect('admin/mst_toko');
+            redirect('admin/mst_tarif');
+        }
+    }
+
+    public function get_tarif()
+    {
+        $id_tarif = $_POST['id_tarif'];
+        echo json_encode($this->db->get_where('mst_tarif', ['id_tarif' => $id_tarif])->row_array());
+    }
+
+    public function edit_tarif()
+    {
+        $id_tarif = $this->input->post('id_tarif');
+        $kota_asal = $this->input->post('kota_asal');
+        $kota_tujuan = $this->input->post('kota_tujuan');
+        $tarif_volume = $this->input->post('tarif_volume');
+        $tarif_jarak = $this->input->post('tarif_jarak');
+
+        $this->db->set('kota_asal', $kota_asal);
+        $this->db->set('kota_tujuan', $kota_tujuan);
+        $this->db->set('tarif_volume', $tarif_volume);
+        $this->db->set('tarif_jarak', $tarif_jarak);
+
+        $this->db->where('id_tarif', $id_tarif);
+        $this->db->update('mst_tarif');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('admin/mst_tarif');
+    }
+
+    public function mst_biaya()
+    {
+        $this->form_validation->set_rules('kota_asal', 'Kota Asal', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Biaya Operasional';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['biaya'] = $this->db->get('mst_biaya')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_admin', $data);
+            $this->load->view('admin/data/mst_biaya', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_biaya' => $this->input->post('nama_biaya', true),
+                'jml_biaya' => $this->input->post('jml_biaya', true),
+            );
+            $this->db->insert('mst_biaya', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('admin/mst_biaya');
         }
     }
 }
