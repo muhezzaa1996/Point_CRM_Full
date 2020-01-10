@@ -40,3 +40,14 @@ function is_spv()
         redirect('auth/blocked');
     }
 }
+
+function is_gerai()
+{
+    $ci = get_instance();
+    $level = $ci->session->userdata('level');
+    $Akses = $ci->uri->segment(1);
+    $ci->db->get_where('mst_user', ['level' => $Akses])->row_array();
+    if ($level !== 'Gerai') {
+        redirect('auth/blocked');
+    }
+}

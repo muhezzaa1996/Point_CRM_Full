@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-header">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-user">
-                            Tambah User
+                            Tambah Pelanggan
                         </button>
                     </div>
                     <div class="card-body">
@@ -42,10 +42,10 @@
                                 <thead>
                                     <th>#</th>
                                     <th>Nama</th>
-                                    <th>User</th>
-                                    <th>Level</th>
+                                    <th>Email</th>
+                                    <th>No HP</th>
                                     <th>Status</th>
-                                    <th>Register</th>
+                                    <th>Tgl Register</th>
                                     <th>Edit</th>
                                     <th>Hapus</th>
                                 </thead>
@@ -55,16 +55,16 @@
                                         <tr>
                                             <td><?php echo $i++; ?></td>
                                             <td><?php echo $lu['nama']; ?></td>
-                                            <td><?php echo $lu['username']; ?></td>
-                                            <td><?php echo $lu['level']; ?></td>
+                                            <td><?php echo $lu['email']; ?></td>
+                                            <td><?php echo $lu['hp']; ?></td>
                                             <?php if ($lu['is_active'] == 1) : ?>
                                                 <td>Aktif</td>
                                             <?php else : ?>
                                                 <td>Tidak Aktif</td>
                                             <?php endif; ?>
                                             <td><?php echo format_indo($lu['date_created']); ?></td>
-                                            <td> <a href="<?php echo base_url('admin/edit_user/') . $lu['id_user']; ?>" class="tombol-edit btn btn-primary btn-block btn-sm" data-id="<?php echo $lu['id_user']; ?>" data-toggle="modal" data-target="#edit-user">Edit</a></td>
-                                            <td><a href="<?php echo base_url('admin/del_user/') . $lu['id_user']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
+                                            <td> <a href="<?php echo base_url('gerai/edit_user/') . $lu['id_user']; ?>" class="tombol-edit btn btn-primary btn-block btn-sm" data-id="<?php echo $lu['id_user']; ?>" data-toggle="modal" data-target="#edit-user">Edit</a></td>
+                                            <td><a href="<?php echo base_url('gerai/del_user/') . $lu['id_user']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -86,20 +86,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah User</h4>
+                <h4 class="modal-title">Tambah Pelanggan</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/man_user'); ?>" method="post" id="form_id">
+                    <form action="<?php echo base_url('gerai/man_user'); ?>" method="post" id="form_id">
                         <div class="form-group">
                             <label for="level">Level</label>
                             <select class="form-control form-control-sm" name="level" required>
-                                <option value="">- Pilih Level -</option>
-                                <option value="Admin">ADMINISTRATOR</option>
-                                <option value="Manager">MANAGER</option>
-                                <option value="Gerai">GERAI</option>
-                                <option value="Supervisor">SUPERVISOR</option>
-                                <option value="Driver">DRIVER</option>
                                 <option value="User">USER</option>
                             </select>
                         </div>
@@ -112,7 +106,6 @@
                             <label>No HP</label>
                             <input type="number" class="form-control form-control-sm" name="hp" required>
                         </div>
-
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" class="form-control form-control-sm" name="email" required>
@@ -126,7 +119,6 @@
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control form-control-sm" name="password1" required>
-
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -158,7 +150,7 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/proses_edit_user'); ?>" method="post" id="form_id">
+                    <form action="<?php echo base_url('gerai/proses_edit_user'); ?>" method="post" id="form_id">
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control form-control-sm" name="username" id="username" readonly>
@@ -168,11 +160,6 @@
                             <input type="hidden" name="id_user" id="idjson">
                             <select class="form-control form-control-sm" name="level" id="level" required>
                                 <option value="">- Pilih Level -</option>
-                                <option value="Admin">ADMINISTRATOR</option>
-                                <option value="Manager">MANAGER</option>
-                                <option value="Gerai">GERAI</option>
-                                <option value="Supervisor">SUPERVISOR</option>
-                                <option value="Driver">DRIVER</option>
                                 <option value="User">USER</option>
                             </select>
                         </div>
@@ -217,7 +204,7 @@
     $('.tombol-edit').on('click', function() {
         const id_user = $(this).data('id');
         $.ajax({
-            url: '<?php echo base_url('admin/edit_user'); ?>',
+            url: '<?php echo base_url('gerai/edit_user'); ?>',
             data: {
                 id_user: id_user
             },

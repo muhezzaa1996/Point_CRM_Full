@@ -1,0 +1,509 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Gerai extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        is_logged_in();
+        is_gerai();
+        $this->load->helper('rupiah');
+        $this->load->helper('tglindo');
+        $this->load->model('Gerai_model', 'gerai');
+    }
+
+    public function index()
+    {
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Beranda';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['user_perbulan'] = $this->gerai->countUserPerbulan();
+            $data['count_user'] = $this->gerai->countJmlUser();
+            $data['user_aktif'] = $this->gerai->countUserAktif();
+            $data['user_tak_aktif'] = $this->gerai->countUserTakAktif();
+            $data['list_user'] = $this->db->get_where('mst_user', ['level' => 'User'])->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/index', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $upload_image = $_FILES['image']['name'];
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size']     = '2048';
+                $config['upload_path'] = './assets/dist/img/profile';
+                $this->load->library('upload', $config);
+                if ($this->upload->do_upload('image')) {
+                    $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+                    $old_image = $data['user']['image'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/dist/img/profile/' . $old_image);
+                    }
+
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('image', $new_image);
+                } else {
+                    echo $this->upload->display_errors();
+                }
+            }
+            $id_user = $this->input->post('id_user');
+            $nama = $this->input->post('nama');
+            $email = $this->input->post('email');
+            $hp = $this->input->post('hp');
+            $this->db->set('nama', $nama);
+            $this->db->set('email', $email);
+            $this->db->set('hp', $hp);
+            $this->db->where('id_user', $id_user);
+            $this->db->update('mst_user');
+            $this->session->set_flashdata('message', 'Update data');
+            redirect('gerai/index');
+        }
+    }
+
+    public function ubah_password()
+    {
+        $this->form_validation->set_rules('current_password', 'Password Lama', 'required|trim');
+        $this->form_validation->set_rules('new_password1', 'Password Baru', 'required|trim|min_length[3]|matches[new_password2]');
+        $this->form_validation->set_rules('new_password2', 'Konfirm Password Baru', 'required|trim|min_length[3]|matches[new_password1]');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Beranda';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['user_perbulan'] = $this->gerai->countUserPerbulan();
+            $data['count_user'] = $this->gerai->countJmlUser();
+            $data['user_aktif'] = $this->gerai->countUserAktif();
+            $data['user_tak_aktif'] = $this->gerai->countUserTakAktif();
+            $data['list_user'] = $this->db->get('mst_user')->result_array();
+
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/index', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $current_password = $this->input->post('current_password');
+            $new_password = $this->input->post('new_password1');
+            if ($current_password == $new_password) {
+                $this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert">Password baru tidak boleh sama dengan password lama</div>');
+                redirect('gerai/index');
+            } else {
+                $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+                $this->db->set('password', $password_hash);
+                $this->db->where('username', $this->session->userdata('username'));
+                $this->db->update('mst_user');
+                $this->session->set_flashdata('message', 'Ubah password');
+                redirect('gerai/index');
+            }
+        }
+    }
+
+    public function man_user()
+    {
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[mst_user.username]', array(
+            'is_unique' => 'Username sudah ada'
+        ));
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', array(
+            'matches' => 'Password tidak sama',
+            'min_length' => 'password min 3 karakter'
+        ));
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Management Pelanggan';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['list_user'] = $this->db->get_where('mst_user', ['level' => 'User'])->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/data/man_user', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama' => $this->input->post('nama', true),
+                'email' => $this->input->post('email', true),
+                'hp' => $this->input->post('hp', true),
+                'level' => $this->input->post('level', true),
+                'username' => $this->input->post('username', true),
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'date_created' => date('Y/m/d'),
+                'image' => 'default.jpg',
+                'is_active' => 1
+            );
+            $this->db->insert('mst_user', $data);
+            $this->session->set_flashdata('message', 'Tambah user');
+            redirect('gerai/man_user');
+        }
+    }
+
+    public function edit_user()
+    {
+        echo json_encode($this->gerai->getUserEdit($_POST['id_user']));
+    }
+
+    public function proses_edit_user()
+    {
+        $id_user = $this->input->post('id_user');
+        $nama = $this->input->post('nama');
+        $email = $this->input->post('email');
+        $hp = $this->input->post('hp');
+        $level = $this->input->post('level');
+        $is_active = $this->input->post('is_active');
+
+        $this->db->set('nama', $nama);
+        $this->db->set('email', $email);
+        $this->db->set('hp', $hp);
+        $this->db->set('level', $level);
+        $this->db->set('is_active', $is_active);
+
+        $this->db->where('id_user', $id_user);
+        $this->db->update('mst_user');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('gerai/man_user');
+    }
+
+    public function del_user($id_user)
+    {
+        $this->db->where('id_user', $id_user);
+        $this->db->delete('mst_user');
+        $this->session->set_flashdata('message', 'Hapus user');
+        redirect('gerai/man_user');
+    }
+
+    public function mst_kendaraan()
+    {
+
+        $this->form_validation->set_rules('nopol', 'No Polisi', 'required|trim|is_unique[mst_kendaraan.nopol]', array(
+            'is_unique' => 'No Polisi sudah ada'
+        ));
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Kendaraan';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['kendaraan'] = $this->db->get('mst_kendaraan')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/data/mst_kendaraan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_kendaraan' => $this->input->post('nama_kendaraan', true),
+                'nopol' => $this->input->post('nopol', true),
+                'bbm' => $this->input->post('bbm', true),
+            );
+            $this->db->insert('mst_kendaraan', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('gerai/mst_kendaraan');
+        }
+    }
+
+    public function get_kendaraan()
+    {
+        $id_kendaraan = $_POST['id_kendaraan'];
+        echo json_encode($this->db->get_where('mst_kendaraan', ['id_kendaraan' => $id_kendaraan])->row_array());
+    }
+
+    public function edit_kendaraan()
+    {
+        $id_kendaraan = $this->input->post('id_kendaraan', true);
+        $nama_kendaraan = $this->input->post('nama_kendaraan', true);
+        $nopol = $this->input->post('nopol', true);
+        $bbm = $this->input->post('bbm', true);
+        $this->db->set('nama_kendaraan', $nama_kendaraan);
+        $this->db->set('nopol', $nopol);
+        $this->db->set('bbm', $bbm);
+        $this->db->where('id_kendaraan', $id_kendaraan);
+        $this->db->update('mst_kendaraan');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('gerai/mst_kendaraan');
+    }
+
+    public function mst_driver()
+    {
+        $data['title'] = 'Data Driver';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['driver'] = $this->db->get_where('mst_user', ['level' => 'Driver'])->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_gerai', $data);
+        $this->load->view('gerai/data/mst_driver', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function mst_spv()
+    {
+        $data['title'] = 'Data Supervisor';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['driver'] = $this->db->get_where('mst_user', ['level' => 'Supervisor'])->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_gerai', $data);
+        $this->load->view('gerai/data/mst_spv', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function mst_bank()
+    {
+        $this->form_validation->set_rules('nama_bank', 'Nama Bank', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Bank';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['bank'] = $this->db->get('mst_bank')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/data/mst_bank', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_bank' => $this->input->post('nama_bank', true),
+                'no_rek' => $this->input->post('no_rek', true),
+                'cabang' => $this->input->post('cabang', true),
+                'kota' => $this->input->post('kota', true)
+            );
+            $this->db->insert('mst_bank', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('gerai/mst_bank');
+        }
+    }
+
+    public function get_bank()
+    {
+        $id_bank = $_POST['id_bank'];
+        echo json_encode($this->db->get_where('mst_bank', ['id_bank' => $id_bank])->row_array());
+    }
+
+    public function edit_bank()
+    {
+        $id_bank = $this->input->post('id_bank', true);
+        $nama_bank = $this->input->post('nama_bank', true);
+        $no_rek = $this->input->post('no_rek', true);
+        $cabang = $this->input->post('cabang', true);
+        $kota = $this->input->post('kota', true);
+        $this->db->set('nama_bank', $nama_bank);
+        $this->db->set('no_rek', $no_rek);
+        $this->db->set('cabang', $cabang);
+        $this->db->set('kota', $kota);
+        $this->db->where('id_bank', $id_bank);
+        $this->db->update('mst_bank');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('gerai/mst_bank');
+    }
+
+    public function mst_toko()
+    {
+        $this->form_validation->set_rules('diskon', 'Diskon', 'required|trim|greater_than[0]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Toko';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['toko'] = $this->db->get('mst_toko')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/data/mst_toko', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'pemilik' => $this->input->post('pemilik', true),
+                'nama_toko' => $this->input->post('nama_toko', true),
+                'alamat_toko' => $this->input->post('alamat_toko', true),
+                'telp_toko' => $this->input->post('telp_toko', true),
+                'diskon' => $this->input->post('diskon', true),
+                'npwp' => $this->input->post('npwp', true)
+            );
+            $this->db->insert('mst_toko', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('gerai/mst_toko');
+        }
+    }
+
+
+    public function get_toko()
+    {
+        $id_toko = $_POST['id_toko'];
+        echo json_encode($this->db->get_where('mst_toko', ['id_toko' => $id_toko])->row_array());
+    }
+
+    public function edit_toko()
+    {
+        $id_toko = $this->input->post('id_toko', true);
+        $pemilik = $this->input->post('pemilik', true);
+        $nama_toko = $this->input->post('nama_toko', true);
+        $alamat_toko = $this->input->post('alamat_toko', true);
+        $telp_toko = $this->input->post('telp_toko', true);
+        $diskon = $this->input->post('diskon', true);
+        $npwp = $this->input->post('npwp', true);
+        $this->db->set('pemilik', $pemilik);
+        $this->db->set('nama_toko', $nama_toko);
+        $this->db->set('alamat_toko', $alamat_toko);
+        $this->db->set('telp_toko', $telp_toko);
+        $this->db->set('diskon', $diskon);
+        $this->db->set('npwp', $npwp);
+        $this->db->where('id_toko', $id_toko);
+        $this->db->update('mst_toko');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('gerai/mst_toko');
+    }
+
+    public function mst_karyawan()
+    {
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[mst_user.username]', array(
+            'is_unique' => 'Username sudah ada'
+        ));
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', array(
+            'matches' => 'Password tidak sama',
+            'min_length' => 'password min 3 karakter'
+        ));
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Karyawan';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['list_user'] = $this->db->get('mst_user')->result_array();
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/data/mst_karyawan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama' => $this->input->post('nama', true),
+                'email' => $this->input->post('email', true),
+                'hp' => $this->input->post('hp', true),
+                'level' => $this->input->post('level', true),
+                'username' => $this->input->post('username', true),
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'date_created' => date('Y/m/d'),
+                'image' => 'default.jpg',
+                'is_active' => 1
+            );
+            $this->db->insert('mst_user', $data);
+            $this->session->set_flashdata('message', 'Tambah user');
+            redirect('gerai/mst_karyawan');
+        }
+    }
+
+    public function proses_edit_karyawan()
+    {
+        $id_user = $this->input->post('id_user');
+        $nama = $this->input->post('nama');
+        $email = $this->input->post('email');
+        $hp = $this->input->post('hp');
+        $level = $this->input->post('level');
+        $is_active = $this->input->post('is_active');
+
+        $this->db->set('nama', $nama);
+        $this->db->set('email', $email);
+        $this->db->set('hp', $hp);
+        $this->db->set('level', $level);
+        $this->db->set('is_active', $is_active);
+
+        $this->db->where('id_user', $id_user);
+        $this->db->update('mst_user');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('gerai/mst_karyawan');
+    }
+
+    public function mst_tarif()
+    {
+        $this->form_validation->set_rules('kota_asal', 'Kota Asal', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Tarif';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['tarif'] = $this->db->get('mst_tarif')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/data/mst_tarif', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'kota_asal' => $this->input->post('kota_asal', true),
+                'kota_tujuan' => $this->input->post('kota_tujuan', true),
+                'tarif_volume' => $this->input->post('tarif_volume', true),
+                'tarif_jarak' => $this->input->post('tarif_jarak', true)
+            );
+            $this->db->insert('mst_tarif', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('gerai/mst_tarif');
+        }
+    }
+
+    public function get_tarif()
+    {
+        $id_tarif = $_POST['id_tarif'];
+        echo json_encode($this->db->get_where('mst_tarif', ['id_tarif' => $id_tarif])->row_array());
+    }
+
+    public function edit_tarif()
+    {
+        $id_tarif = $this->input->post('id_tarif');
+        $kota_asal = $this->input->post('kota_asal');
+        $kota_tujuan = $this->input->post('kota_tujuan');
+        $tarif_volume = $this->input->post('tarif_volume');
+        $tarif_jarak = $this->input->post('tarif_jarak');
+
+        $this->db->set('kota_asal', $kota_asal);
+        $this->db->set('kota_tujuan', $kota_tujuan);
+        $this->db->set('tarif_volume', $tarif_volume);
+        $this->db->set('tarif_jarak', $tarif_jarak);
+
+        $this->db->where('id_tarif', $id_tarif);
+        $this->db->update('mst_tarif');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('gerai/mst_tarif');
+    }
+
+    public function mst_biaya()
+    {
+        $this->form_validation->set_rules('nama_biaya', 'Nama Biaya', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Biaya Operasional';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['biaya'] = $this->db->get('mst_biaya')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/data/mst_biaya', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_biaya' => $this->input->post('nama_biaya', true),
+                'jml_biaya' => $this->input->post('jml_biaya', true),
+            );
+            $this->db->insert('mst_biaya', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('gerai/mst_biaya');
+        }
+    }
+
+    public function get_biaya()
+    {
+        $id_biaya = $_POST['id_biaya'];
+        echo json_encode($this->db->get_where('mst_biaya', ['id_biaya' => $id_biaya])->row_array());
+    }
+
+    public function edit_biaya()
+    {
+        $id_biaya = $this->input->post('id_biaya');
+        $nama_biaya = $this->input->post('nama_biaya');
+        $jml_biaya = $this->input->post('jml_biaya');
+
+        $this->db->set('nama_biaya', $nama_biaya);
+        $this->db->set('jml_biaya', $jml_biaya);
+
+        $this->db->where('id_biaya', $id_biaya);
+        $this->db->update('mst_biaya');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('gerai/mst_biaya');
+    }
+}

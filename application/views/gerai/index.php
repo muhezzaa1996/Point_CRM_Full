@@ -23,7 +23,7 @@
                     <div class="small-box bg-teal">
                         <div class="inner">
                             <h3><?php echo $user_perbulan; ?></h3>
-                            <p>User Register</p>
+                            <p>Pelanggan Bulan ini</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-plus"></i>
@@ -36,7 +36,7 @@
                     <div class="small-box bg-green">
                         <div class="inner">
                             <h3><?php echo $count_user; ?></h3>
-                            <p>Total User</p>
+                            <p>Total Pelanggan</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-users"></i>
@@ -49,7 +49,7 @@
                     <div class="small-box bg-purple">
                         <div class="inner">
                             <h3><?php echo $user_aktif; ?></h3>
-                            <p>User Aktif</p>
+                            <p>Pelanggan Aktif</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-check"></i>
@@ -62,7 +62,7 @@
                     <div class="small-box bg-red">
                         <div class="inner">
                             <h3><?php echo $user_tak_aktif; ?></h3>
-                            <p>User Tidak Aktif</p>
+                            <p>Pelanggan Tidak Aktif</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-times"></i>
@@ -71,6 +71,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
@@ -122,7 +123,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card">
                             <div class="card-header p-2">
-                                <h4>List User</h4>
+                                <h4>List Pelanggan</h4>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
@@ -132,8 +133,8 @@
                                                 <thead>
                                                     <th>#</th>
                                                     <th>Nama</th>
-                                                    <th>User</th>
-                                                    <th>Level</th>
+                                                    <th>Email</th>
+                                                    <th>No HP</th>
                                                     <th>Status</th>
                                                     <th>Tgl Register</th>
                                                 </thead>
@@ -143,8 +144,8 @@
                                                         <tr>
                                                             <td><?php echo $i++; ?></td>
                                                             <td><?php echo $lu['nama']; ?></td>
-                                                            <td><?php echo $lu['username']; ?></td>
-                                                            <td><?php echo $lu['level']; ?></td>
+                                                            <td><?php echo $lu['email']; ?></td>
+                                                            <td><?php echo $lu['hp']; ?></td>
                                                             <?php if ($lu['is_active'] == 1) : ?>
                                                                 <td>Aktif</td>
                                                             <?php else : ?>
@@ -157,7 +158,6 @@
                                             </table>
                                         </div>
                                     </div>
-
                                 </div>
                                 <!-- /.tab-content -->
                             </div><!-- /.card-body -->
@@ -183,7 +183,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?php echo form_open_multipart('admin/index'); ?>
+                <?php echo form_open_multipart('gerai/index'); ?>
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
@@ -248,7 +248,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?php echo base_url('admin/ubah_password'); ?>" method="post">
+                <form action="<?php echo base_url('gerai/ubah_password'); ?>" method="post">
                     <div class="form-group">
                         <label for="current_password">Password Lama</label>
                         <input type="password" class="form-control" id="current_password" name="current_password">
