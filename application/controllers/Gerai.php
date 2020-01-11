@@ -506,4 +506,28 @@ class Gerai extends CI_Controller
         $this->session->set_flashdata('message', 'Update data');
         redirect('gerai/mst_biaya');
     }
+
+    public function terima_order()
+    {
+        $this->form_validation->set_rules('nama_biaya', 'Nama Biaya', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Penerimaan Order';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['terima_order'] = $this->gerai->getTerimaOrder();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_gerai', $data);
+            $this->load->view('gerai/transaksi/terima_order', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_biaya' => $this->input->post('nama_biaya', true),
+                'jml_biaya' => $this->input->post('jml_biaya', true),
+            );
+            $this->db->insert('mst_biaya', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('gerai/mst_biaya');
+        }
+    }
 }

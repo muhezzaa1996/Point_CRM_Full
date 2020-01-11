@@ -104,4 +104,12 @@ class Gerai_model extends CI_model
         $kodejadi = "CAB-" . date('dmY') . "-" . $kodemax;
         return $kodejadi;
     }
+
+    public function getTerimaOrder()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_order', 'DESC');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
