@@ -123,7 +123,6 @@ class Gerai_model extends CI_model
         return $kodejadi;
     }
 
-
     public function getTerimaOrder()
     {
         $this->db->select('*');

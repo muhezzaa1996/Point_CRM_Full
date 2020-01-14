@@ -516,6 +516,7 @@ class Gerai extends CI_Controller
             $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
             $data['kode_order'] = $this->gerai->getKodeOrder();
             $data['terima_order'] = $this->gerai->getTerimaOrder();
+            $data['tarif'] = $this->db->get('mst_tarif')->result_array();
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_gerai', $data);

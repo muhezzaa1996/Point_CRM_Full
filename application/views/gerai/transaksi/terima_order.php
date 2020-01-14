@@ -1,3 +1,15 @@
+<script>
+    function tampilkan() {
+        var nama_kota = document.getElementById("form1").kategori.value;
+        if (nama_kota == "makanan") {
+            document.getElementById("tampil").innerHTML = "Anda Memilih <b>Makanan</b>";
+        } else if (nama_kota == "minuman") {
+            document.getElementById("tampil").innerHTML = "Anda Memilih <b>Minuman</b>";
+        }
+    }
+</script>
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -92,14 +104,26 @@
                             <label>Kode Order</label>
                             <input type="text" class="form-control form-control-sm" name="pemilik" value="<?php echo $kode_order; ?>" readonly>
                         </div>
+
                         <div class="form-group">
-                            <label>Nama Pemilik</label>
-                            <input type="text" class="form-control form-control-sm" name="pemilik" required>
+                            <label for="exampleFormControlSelect1">Tujuan</label>
+                            <select class="form-control" name="color" onchange='CheckColors(this.value);'>
+                                <?php foreach ($tarif as $t) : ?>
+                                    <option><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
+                        <input type="text" name="othercolor" id="othercolor" />
                         <div class="form-group">
-                            <label>Nama Toko</label>
-                            <input type="text" class="form-control form-control-sm" name="nama_toko" required>
+                            <label>Harga Volume</label>
+                            <input type="text" class="form-control form-control-sm" name="tarif_id" list="tujuan" required>
+                            <datalist id="tujuan">
+                                <?php foreach ($tarif as $t) : ?>
+                                    <option><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
+                                <?php endforeach; ?>
+                            </datalist>
                         </div>
+
                         <div class="form-group">
                             <label>Alamat Toko</label>
                             <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
