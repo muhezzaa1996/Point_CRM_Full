@@ -1,15 +1,3 @@
-<script>
-    function tampilkan() {
-        var nama_kota = document.getElementById("form1").kategori.value;
-        if (nama_kota == "makanan") {
-            document.getElementById("tampil").innerHTML = "Anda Memilih <b>Makanan</b>";
-        } else if (nama_kota == "minuman") {
-            document.getElementById("tampil").innerHTML = "Anda Memilih <b>Minuman</b>";
-        }
-    }
-</script>
-
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
