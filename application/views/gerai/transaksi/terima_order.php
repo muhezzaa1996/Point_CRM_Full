@@ -173,7 +173,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="exampleFormControlSelect1">Total Harga</label>
-                                <input type="text" class="form-control form-control-sm" id="total_km" disabled="">
+                                <input type="text" class="form-control form-control-sm" id="grandtotal_km" disabled="">
                             </div>
                         </div>
 
@@ -204,12 +204,12 @@
     });
 </script>
 <script>
-    $("#jarak").keyup(function() {
-        var harga = parseInt($("#show_only").val())
-        var jumlah = parseInt($("#jumlah").val())
+    $("#total_km").keyup(function() {
+        var harga = parseInt($("#jarak_show").val())
+        var jumlah = parseInt($("#total_km").val())
 
         var total = harga * jumlah;
-        $("#total").attr("value", total)
+        $("#grandtotal_km").attr("value", total)
 
     });
 </script>
