@@ -80,54 +80,106 @@
 
 <!-- Modal -->
 <div class="modal fade" id="add-user">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Toko</h4>
+                <h4 class="modal-title">Terima Order</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
                     <form action="<?php echo base_url('gerai/mst_toko'); ?>" method="post">
                         <div class="form-group">
                             <label>Kode Order</label>
-                            <input type="text" class="form-control form-control-sm" name="pemilik" value="<?php echo $kode_order; ?>" readonly>
+                            <input type="text" class="form-control form-control-sm" name="pemilik" value="<?php echo $kode_order; ?>" disabled="">
                         </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Tujuan</label>
-                            <select class="form-control" name="color" onchange='CheckColors(this.value);'>
-                                <?php foreach ($tarif as $t) : ?>
-                                    <option><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nama Pengirim</label>
+                                    <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>No Telp Pengirim</label>
+                                    <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                                </div>
+                            </div>
                         </div>
-                        <input type="text" name="othercolor" id="othercolor" />
                         <div class="form-group">
-                            <label>Harga Volume</label>
-                            <input type="text" class="form-control form-control-sm" name="tarif_id" list="tujuan" required>
-                            <datalist id="tujuan">
-                                <?php foreach ($tarif as $t) : ?>
-                                    <option><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
-                                <?php endforeach; ?>
-                            </datalist>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Alamat Toko</label>
+                            <label>Alamat Pengirim</label>
                             <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
                         </div>
-                        <div class="form-group">
-                            <label>No Telp Toko</label>
-                            <input type="number" class="form-control form-control-sm" name="telp_toko" required>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nama Penerima</label>
+                                    <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>No Telp Penerima</label>
+                                    <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>No NPWP</label>
-                            <input type="number" class="form-control form-control-sm" name="npwp" required>
+                            <label>Alamat Penerima</label>
+                            <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
                         </div>
-                        <div class="form-group">
-                            <label>Diskon</label>
-                            <input type="number" class="form-control form-control-sm" name="diskon" required>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Tujuan</label>
+                                    <select class="form-control form-control-sm" name="color" id="select_box">
+                                        <?php foreach ($tarif as $t) : ?>
+                                            <option value="<?php echo $t['tarif_volume']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="exampleFormControlSelect1">Harga (Kubik)</label>
+                                <input type="text" class="form-control form-control-sm" id="show_only" disabled="">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="exampleFormControlSelect1">Total Volume</label>
+                                <input type="text" class="form-control form-control-sm" id="jumlah">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="exampleFormControlSelect1">Total Harga</label>
+                                <input type="text" class="form-control form-control-sm" id="total" disabled="">
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Tujuan</label>
+                                    <select class="form-control form-control-sm" name="color" id="jarak">
+                                        <?php foreach ($tarif as $t) : ?>
+                                            <option value="<?php echo $t['tarif_volume']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="exampleFormControlSelect1">Harga (KM)</label>
+                                <input type="text" class="form-control form-control-sm" id="jarak_show" disabled="">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="exampleFormControlSelect1">Total KM</label>
+                                <input type="text" class="form-control form-control-sm" id="total_km">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="exampleFormControlSelect1">Total Harga</label>
+                                <input type="text" class="form-control form-control-sm" id="total_km" disabled="">
+                            </div>
+                        </div>
+
+
+
+
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
@@ -141,72 +193,37 @@
     </div>
 </div>
 
-<div class="modal fade" id="edit-user">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Toko</h4>
-            </div>
-            <div class="modal-body">
-                <div class="box-body">
-                    <form action="<?php echo base_url('gerai/edit_toko'); ?>" method="post">
-                        <div class="form-group">
-                            <label>Nama Pemilik</label>
-                            <input type="hidden" name="id_toko" id="id_toko">
-                            <input type="text" class="form-control form-control-sm" name="pemilik" id="pemilik" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama Toko</label>
-                            <input type="text" class="form-control form-control-sm" name="nama_toko" id="nama_toko" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Alamat Toko</label>
-                            <input type="text" class="form-control form-control-sm" name="alamat_toko" id="alamat_toko" required>
-                        </div>
-                        <div class="form-group">
-                            <label>No Telp Toko</label>
-                            <input type="number" class="form-control form-control-sm" name="telp_toko" id="telp_toko" required>
-                        </div>
-                        <div class="form-group">
-                            <label>No NPWP</label>
-                            <input type="number" class="form-control form-control-sm" name="npwp" id="npwp" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Diskon</label>
-                            <input type="number" class="form-control form-control-sm" name="diskon" id="diskon" required>
-                        </div>
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Simpan Perubahan</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-</div>
-
 <script>
-    $('.tombol-edit').on('click', function() {
-        const id_toko = $(this).data('id');
-        $.ajax({
-            url: '<?php echo base_url('gerai/get_toko'); ?>',
-            data: {
-                id_toko: id_toko
-            },
-            method: 'post',
-            dataType: 'json',
-            success: function(data) {
-                $('#pemilik').val(data.pemilik);
-                $('#nama_toko').val(data.nama_toko);
-                $('#alamat_toko').val(data.alamat_toko);
-                $('#telp_toko').val(data.telp_toko);
-                $('#npwp').val(data.npwp);
-                $('#diskon').val(data.diskon);
-                $('#id_toko').val(data.id_toko);
-            }
+    $("#jumlah").keyup(function() {
+        var harga = parseInt($("#show_only").val())
+        var jumlah = parseInt($("#jumlah").val())
+
+        var total = harga * jumlah;
+        $("#total").attr("value", total)
+
+    });
+</script>
+<script>
+    $("#jarak").keyup(function() {
+        var harga = parseInt($("#show_only").val())
+        var jumlah = parseInt($("#jumlah").val())
+
+        var total = harga * jumlah;
+        $("#total").attr("value", total)
+
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('body').on('change', '#select_box', function() {
+            $('#show_only').val(this.value);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('body').on('change', '#jarak', function() {
+            $('#jarak_show').val(this.value);
         });
     });
 </script>
