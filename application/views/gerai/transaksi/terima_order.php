@@ -133,6 +133,7 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Tujuan</label>
                                     <select class="form-control form-control-sm" name="color" id="select_box">
+                                        <option value="">- Pilih -</option>
                                         <?php foreach ($tarif as $t) : ?>
                                             <option value="<?php echo $t['tarif_volume']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
                                         <?php endforeach; ?>
@@ -145,7 +146,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="exampleFormControlSelect1">Total Volume</label>
-                                <input type="text" class="form-control form-control-sm" id="jumlah">
+                                <input type="number" class="form-control form-control-sm" id="jumlah">
                             </div>
                             <div class="col-md-3">
                                 <label for="exampleFormControlSelect1">Total Harga</label>
@@ -157,6 +158,7 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Tujuan</label>
                                     <select class="form-control form-control-sm" name="color" id="jarak">
+                                        <option value="">- Pilih -</option>
                                         <?php foreach ($tarif as $t) : ?>
                                             <option value="<?php echo $t['tarif_volume']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
                                         <?php endforeach; ?>
@@ -169,18 +171,15 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="exampleFormControlSelect1">Total KM</label>
-                                <input type="text" class="form-control form-control-sm" id="total_km">
+                                <input type="number" class="form-control form-control-sm" id="total_km">
                             </div>
                             <div class="col-md-3">
                                 <label for="exampleFormControlSelect1">Total Harga</label>
                                 <input type="text" class="form-control form-control-sm" id="grandtotal_km" disabled="">
                             </div>
                         </div>
-
-
-
-
                         <div class="box-footer">
+                            <button type="reset" class="btn btn-info pull-right">Reset</button>
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                         </div>
@@ -197,17 +196,14 @@
     $("#jumlah").keyup(function() {
         var harga = parseInt($("#show_only").val())
         var jumlah = parseInt($("#jumlah").val())
-
         var total = harga * jumlah;
         $("#total").attr("value", total)
-
     });
 </script>
 <script>
     $("#total_km").keyup(function() {
         var harga = parseInt($("#jarak_show").val())
         var jumlah = parseInt($("#total_km").val())
-
         var total = harga * jumlah;
         $("#grandtotal_km").attr("value", total)
 
