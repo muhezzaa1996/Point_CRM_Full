@@ -89,10 +89,10 @@
              </div>
              <div class="modal-body">
                  <div class="box-body">
-                     <form action="<?php echo base_url('gerai/mst_toko'); ?>" method="post">
+                     <form action="<?php echo base_url('gerai/mst_toko'); ?>" method="post" id="myform">
                          <div class="form-group">
                              <label>Kode Order</label>
-                             <input type="text" class="form-control form-control-sm" name="pemilik" value="<?php echo $kode_order; ?>" disabled="">
+                             <input type="char" class="form-control form-control-sm" name="pemilik" value="<?php echo $kode_order; ?>" disabled="">
                          </div>
                          <div class="row">
                              <div class="col-md-6">
@@ -148,7 +148,7 @@
                              </div>
                              <div class="col-md-2">
                                  <label for="exampleFormControlSelect1">Total Volume</label>
-                                 <input type="number" class="form-control form-control-sm" id="jumlah">
+                                 <input type="text" class="form-control form-control-sm" id="jumlah">
                              </div>
                              <div class="col-md-3">
                                  <label for="exampleFormControlSelect1">Total Harga</label>
@@ -173,15 +173,15 @@
                              </div>
                              <div class="col-md-2">
                                  <label for="exampleFormControlSelect1">Total KM</label>
-                                 <input type="number" class="form-control form-control-sm" id="total_km">
+                                 <input type="text" class="numerical form-control form-control-sm" id="total_km">
                              </div>
                              <div class="col-md-3">
                                  <label for="exampleFormControlSelect1">Total Harga</label>
-                                 <input type="number" class="form-control form-control-sm" id="grandtotal_km" disabled="">
+                                 <input type="text" class="form-control form-control-sm" id="grandtotal_km" disabled="">
                              </div>
                          </div>
                          <div class="box-footer">
-                             <button type="reset" class="btn btn-info pull-right">Reset</button>
+                             <input type="button" class="btn btn-info btn-sm" id="mybutton" value="Reset form">
                              <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
                              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                          </div>
@@ -223,5 +223,16 @@
          $('body').on('change', '#jarak', function() {
              $('#jarak_show').val(this.value);
          });
+     });
+ </script>
+ <script>
+     $("#mybutton").click(function() {
+         $("#myform").find('input:text, select, textarea').val('');
+         //  $("#myform").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+     });
+ </script>
+ <script>
+     $(".numerical").on('input', function() {
+         this.value = this.value.replace(/[^0-9]/g, '');
      });
  </script>
