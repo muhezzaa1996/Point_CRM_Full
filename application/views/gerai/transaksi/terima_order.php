@@ -181,7 +181,7 @@
                              </div>
                          </div>
                          <div class="box-footer">
-                             <input type="button" class="btn btn-info btn-sm" id="mybutton" value="Reset form">
+                             <input type="reset" class="btn btn-info btn-sm" value="Reset form">
                              <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
                              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                          </div>
@@ -225,12 +225,12 @@
          });
      });
  </script>
- <script>
+ <!-- <script>
      $("#mybutton").click(function() {
          $("#myform").find('input:text, select, textarea').val('');
-         //  $("#myform").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+         $("#myform").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
      });
- </script>
+ </script> -->
  <script>
      $(".numerical").on('input', function() {
          this.value = this.value.replace(/[^0-9]/g, '');
