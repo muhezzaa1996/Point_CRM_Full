@@ -34,42 +34,60 @@
              <div class="card card-primary card-outline">
                  <div class="card">
                      <div class="card-header">
-                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-user">
-                             Tambah Penerimaan
+                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#trans_jarak">
+                             Transaksi Jarak
+                         </button>
+                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#trans_volume">
+                             Transaksi Volume
                          </button>
                      </div>
                      <div class="card-body">
-                         <div class="table-responsive">
-                             <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
-                                 <thead>
-                                     <th>#</th>
-                                     <th>Kode Order</th>
-                                     <th>Pelanggan</th>
-                                     <th>Kota Asal</th>
-                                     <th>Kota Tujuan</th>
-                                     <th>Tarif Vol</th>
-                                     <th>Tarif Jarak</th>
-                                     <th>Diskon</th>
-                                     <!-- <th>Edit</th> -->
-                                 </thead>
-                                 <tbody>
-                                     <?php $i = 1; ?>
-                                     <?php foreach ($terima_order as $lu) : ?>
-                                         <tr>
-                                             <td><?php echo $i++; ?></td>
-                                             <td><?php echo $lu['kode_order']; ?></td>
-                                             <td><?php echo $lu['nama_pelanggan']; ?></td>
-                                             <td><?php echo $lu['kota_asal']; ?></td>
-                                             <td><?php echo $lu['kota_tujuan']; ?></td>
-                                             <td><?php echo $lu['tarif_volume']; ?></td>
-                                             <td><?php echo $lu['tarif_jarak']; ?></td>
-                                             <td><?php echo $lu['diskon']; ?></td>
-                                             <!-- <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td> -->
-                                         </tr>
-                                     <?php endforeach; ?>
-                                 </tbody>
-                             </table>
+                         <div class="row">
+                             <div class="col-md-12">
+                                 <div class="table-responsive">
+                                     <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
+                                         <thead>
+                                             <th>#</th>
+                                             <th>Kode Order</th>
+                                             <th>Pengirim</th>
+                                             <th>Alamat</th>
+                                             <th>Penerima</th>
+                                             <th>Alamat</th>
+                                             <th>Status</th>
+                                             <!-- <th>Edit</th> -->
+                                         </thead>
+                                         <tbody>
+                                             <?php $i = 1; ?>
+                                             <?php foreach ($terima_order as $lu) : ?>
+                                                 <tr>
+                                                     <td><?php echo $i++; ?></td>
+                                                     <td><?php echo $lu['kode_order']; ?></td>
+                                                     <td><?php echo $lu['nama_pengirim']; ?></td>
+                                                     <td><?php echo $lu['alamat_pengirim']; ?></td>
+                                                     <td><?php echo $lu['nama_penerima']; ?></td>
+                                                     <td><?php echo $lu['alamat_penerima']; ?></td>
+                                                     <?php if ($lu['status_pickup'] == 1) : ?>
+                                                         <td><button type="button" class="btn btn-warning btn-sm btn-block">Pending</button></td>
+                                                     <?php else : ?>
+                                                         <td><button type="button" class="btn btn-success btn-sm btn-block">Picked Up</button></td>
+                                                     <?php endif; ?>
+
+                                                     <!-- <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td> -->
+                                                 </tr>
+                                             <?php endforeach; ?>
+                                         </tbody>
+                                     </table>
+                                 </div>
+
+                             </div>
+                             <div class="col-md-12">
+
+
+                             </div>
+
+
                          </div>
+
                      </div>
                  </div>
              </div>
@@ -81,18 +99,124 @@
 
 
  <!-- Modal -->
- <div class="modal fade" id="add-user">
-     <div class="modal-dialog modal-lg">
+ <div class="modal fade" id="trans_jarak">
+     <div class="modal-dialog">
          <div class="modal-content">
              <div class="modal-header">
-                 <h4 class="modal-title">Terima Order</h4>
+                 <h4 class="modal-title">Input Order Jarak</h4>
+             </div>
+             <div class="modal-body">
+                 <div class="box-body">
+                     <form action="<?php echo base_url('gerai/terima_order'); ?>" method="post" id="myform">
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>Tgl Order</label>
+                                     <input type="date" class="form-control form-control-sm" name="tgl_order" required>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>Kode Order</label>
+                                     <input type="text" class="form-control form-control-sm" name="kode_order" value="<?php echo $kode_order_jarak; ?>" readonly>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>Nama Pengirim</label>
+                                     <input type="text" class="form-control form-control-sm" name="nama_pengirim" required>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>No Telp Pengirim</label>
+                                     <input type="text" class="form-control form-control-sm" name="telp_pengirim" required>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="form-group">
+                             <label>Alamat Pengirim</label>
+                             <input type="text" class="form-control form-control-sm" name="alamat_pengirim" required>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>Nama Penerima</label>
+                                     <input type="text" class="form-control form-control-sm" name="nama_penerima" required>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>No Telp Penerima</label>
+                                     <input type="text" class="form-control form-control-sm" name="telp_penerima" required>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="form-group">
+                             <label>Alamat Penerima</label>
+                             <input type="text" class="form-control form-control-sm" name="alamat_penerima" required>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-5">
+                                 <div class="form-group">
+                                     <label for="exampleFormControlSelect1">Tujuan</label>
+                                     <select class="form-control form-control-sm" name="color" id="jarak" required>
+                                         <option value="">- Pilih -</option>
+                                         <?php foreach ($tarif as $t) : ?>
+                                             <option value="<?php echo $t['tarif_jarak']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
+                                         <?php endforeach; ?>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="col-md-2">
+                                 <label for="exampleFormControlSelect1">Harga</label>
+                                 <input type="text" class="form-control form-control-sm" name="nominal" id="jarak_show" readonly>
+                             </div>
+                             <div class="col-md-2">
+                                 <label for="exampleFormControlSelect1">KM</label>
+                                 <input type="number" class="numerical form-control form-control-sm" name="jarak" id="total_km">
+                             </div>
+                             <div class="col-md-3">
+                                 <label for="exampleFormControlSelect1">Total Harga</label>
+                                 <input type="text" class="form-control form-control-sm" name="pembayaran" id="grandtotal_km" readonly>
+                             </div>
+                         </div>
+                         <div class="box-footer">
+                             <button type="reset" class="btn btn-info pull-right">Reset</button>
+                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                         </div>
+                     </form>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <div class="modal fade" id="trans_volume">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h4 class="modal-title">Input Order Volume</h4>
              </div>
              <div class="modal-body">
                  <div class="box-body">
                      <form action="<?php echo base_url('gerai/mst_toko'); ?>" method="post" id="myform">
-                         <div class="form-group">
-                             <label>Kode Order</label>
-                             <input type="char" class="form-control form-control-sm" name="pemilik" value="<?php echo $kode_order; ?>" disabled="">
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>Tgl Order</label>
+                                     <input type="date" class="form-control form-control-sm" name="tgl_order" required>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>Kode Order</label>
+                                     <input type="char" class="form-control form-control-sm" name="kode_order" value="<?php echo $kode_order_volume; ?>" disabled="">
+                                 </div>
+                             </div>
                          </div>
                          <div class="row">
                              <div class="col-md-6">
@@ -131,68 +255,44 @@
                              <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
                          </div>
                          <div class="row">
-                             <div class="col-md-4">
+                             <div class="col-md-5">
                                  <div class="form-group">
                                      <label for="exampleFormControlSelect1">Tujuan</label>
                                      <select class="form-control form-control-sm" name="color" id="select_box">
                                          <option value="">- Pilih -</option>
                                          <?php foreach ($tarif as $t) : ?>
-                                             <option value="<?php echo $t['tarif_volume']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
+                                             <option value="<?php echo $t['tarif_jarak']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
                                          <?php endforeach; ?>
                                      </select>
                                  </div>
                              </div>
-                             <div class="col-md-3">
-                                 <label for="exampleFormControlSelect1">Harga (Kubik)</label>
+                             <div class="col-md-2">
+                                 <label for="exampleFormControlSelect1">Harga</label>
                                  <input type="text" class="form-control form-control-sm" id="show_only" disabled="">
                              </div>
                              <div class="col-md-2">
-                                 <label for="exampleFormControlSelect1">Total Volume</label>
-                                 <input type="text" class="form-control form-control-sm" id="jumlah">
+                                 <label for="exampleFormControlSelect1">Volume</label>
+                                 <input type="number" class="numerical form-control form-control-sm" id="jumlah">
                              </div>
                              <div class="col-md-3">
                                  <label for="exampleFormControlSelect1">Total Harga</label>
                                  <input type="text" class="form-control form-control-sm" id="total" disabled="">
                              </div>
                          </div>
-                         <div class="row">
-                             <div class="col-md-4">
-                                 <div class="form-group">
-                                     <label for="exampleFormControlSelect1">Tujuan</label>
-                                     <select class="form-control form-control-sm" name="color" id="jarak">
-                                         <option value="">- Pilih -</option>
-                                         <?php foreach ($tarif as $t) : ?>
-                                             <option value="<?php echo $t['tarif_volume']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
-                                         <?php endforeach; ?>
-                                     </select>
-                                 </div>
-                             </div>
-                             <div class="col-md-3">
-                                 <label for="exampleFormControlSelect1">Harga (KM)</label>
-                                 <input type="text" class="form-control form-control-sm" id="jarak_show" disabled="">
-                             </div>
-                             <div class="col-md-2">
-                                 <label for="exampleFormControlSelect1">Total KM</label>
-                                 <input type="text" class="numerical form-control form-control-sm" id="total_km">
-                             </div>
-                             <div class="col-md-3">
-                                 <label for="exampleFormControlSelect1">Total Harga</label>
-                                 <input type="text" class="form-control form-control-sm" id="grandtotal_km" disabled="">
-                             </div>
-                         </div>
                          <div class="box-footer">
-                             <input type="reset" class="btn btn-info btn-sm" value="Reset form">
+                             <button type="reset" class="btn btn-info pull-right">Reset</button>
                              <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
                              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                          </div>
                      </form>
                  </div>
              </div>
-             <!-- /.modal-content -->
          </div>
-         <!-- /.modal-dialog -->
      </div>
  </div>
+
+
+
 
  <script>
      $("#jumlah").keyup(function() {
@@ -223,16 +323,5 @@
          $('body').on('change', '#jarak', function() {
              $('#jarak_show').val(this.value);
          });
-     });
- </script>
- <!-- <script>
-     $("#mybutton").click(function() {
-         $("#myform").find('input:text, select, textarea').val('');
-         $("#myform").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
-     });
- </script> -->
- <script>
-     $(".numerical").on('input', function() {
-         this.value = this.value.replace(/[^0-9]/g, '');
      });
  </script>

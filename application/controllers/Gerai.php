@@ -509,12 +509,13 @@ class Gerai extends CI_Controller
 
     public function terima_order()
     {
-        $this->form_validation->set_rules('nama_biaya', 'Nama Biaya', 'required|trim');
+        $this->form_validation->set_rules('tgl_order', 'Tanggal Order', 'required|trim');
 
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'Penerimaan Order';
             $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
-            $data['kode_order'] = $this->gerai->getKodeOrder();
+            $data['kode_order_jarak'] = $this->gerai->getKodeOrderJarak();
+            $data['kode_order_volume'] = $this->gerai->getKodeOrderVolume();
             $data['terima_order'] = $this->gerai->getTerimaOrder();
             $data['tarif'] = $this->db->get('mst_tarif')->result_array();
 
@@ -524,12 +525,27 @@ class Gerai extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $data = array(
-                'nama_biaya' => $this->input->post('nama_biaya', true),
-                'jml_biaya' => $this->input->post('jml_biaya', true),
+                'tgl_order' => $this->input->post('tgl_order', true),
+                'kode_order' => $this->input->post('kode_order', true),
+                'nama_pengirim' => $this->input->post('nama_pengirim', true),
+                'telp_pengirim' => $this->input->post('telp_pengirim', true),
+                'alamat_pengirim' => $this->input->post('alamat_pengirim', true),
+                'nama_penerima' => $this->input->post('nama_penerima', true),
+                'telp_penerima' => $this->input->post('telp_penerima', true),
+                'alamat_penerima' => $this->input->post('alamat_penerima', true),
+                'status' => 1
             );
-            $this->db->insert('mst_biaya', $data);
+            $data2 = array(
+                'tgl_transaksi' => $this->input->post('tgl_order', true),
+                'transaksi_kode' => $this->input->post('kode_order', true),
+                'nominal' => $this->input->post('nominal', true),
+                'jarak' => $this->input->post('jarak', true),
+                'pembayaran' => $this->input->post('pembayaran', true)
+            );
+            $this->db->insert('tb_order', $data);
+            $this->db->insert('transaksi_jarak', $data2);
             $this->session->set_flashdata('message', 'Tambah data');
-            redirect('gerai/mst_biaya');
+            redirect('gerai/terima_order');
         }
     }
 }

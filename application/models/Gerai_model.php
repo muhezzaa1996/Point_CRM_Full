@@ -105,7 +105,7 @@ class Gerai_model extends CI_model
         return $kodejadi;
     }
 
-    function getKodeOrder()
+    function getKodeOrderJarak()
     {
         $this->db->select('RIGHT(kode_order,4) as kode', FALSE);
         $this->db->order_by('id_order', 'DESC');
@@ -119,7 +119,25 @@ class Gerai_model extends CI_model
             $kode = 1;
         }
         $kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT);
-        $kodejadi = "PO-" . date('dmY-Hi') . "-" . $kodemax;
+        $kodejadi = "POJ-" . date('dmY-Hi') . "-" . $kodemax;
+        return $kodejadi;
+    }
+
+    function getKodeOrderVolume()
+    {
+        $this->db->select('RIGHT(kode_order,4) as kode', FALSE);
+        $this->db->order_by('id_order', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('tb_order');
+        if ($query->num_rows() <> 0) {
+
+            $data = $query->row();
+            $kode = intval($data->kode) + 1;
+        } else {
+            $kode = 1;
+        }
+        $kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT);
+        $kodejadi = "POV-" . date('dmY-Hi') . "-" . $kodemax;
         return $kodejadi;
     }
 
@@ -127,6 +145,7 @@ class Gerai_model extends CI_model
     {
         $this->db->select('*');
         $this->db->from('tb_order', 'DESC');
+        $this->db->where('status_pickup', 1);
         $query = $this->db->get();
         return $query->result_array();
     }
