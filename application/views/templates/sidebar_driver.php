@@ -28,11 +28,17 @@
                     </a>
                 </li>
 
-                <li class="nav-header">DRIVER</li>
+                <!-- <li class="nav-header">DRIVER</li> -->
                 <li class="nav-item">
-                    <a href="<?php echo base_url('driver/rute'); ?>" class="nav-link">
-                        <i class="nav-icon fas fa-map"></i>
-                        <p class="text">Data Perjalanan</p>
+                    <a href="<?php echo base_url('driver/list_pickup'); ?>" class="nav-link">
+                        <i class="nav-icon fab fa-buffer"></i>
+                        <p class="text">Data Orderan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('driver/data_pickup'); ?>" class="nav-link">
+                        <i class="nav-icon fab fas fa-truck"></i>
+                        <p class="text">Data Pick Up</p>
                     </a>
                 </li>
                 <li class="nav-header">END</li>

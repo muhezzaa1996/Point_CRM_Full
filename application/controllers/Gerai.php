@@ -517,6 +517,7 @@ class Gerai extends CI_Controller
             $data['kode_order_jarak'] = $this->gerai->getKodeOrderJarak();
             $data['kode_order_volume'] = $this->gerai->getKodeOrderVolume();
             $data['terima_order'] = $this->gerai->getTerimaOrder();
+            $data['terima_order_volume'] = $this->gerai->getTerimaOrderVolume();
             $data['order_sukses'] = $this->gerai->getOrderSukses();
             $data['tarif'] = $this->db->get('mst_tarif')->result_array();
 
@@ -534,7 +535,8 @@ class Gerai extends CI_Controller
                 'nama_penerima' => $this->input->post('nama_penerima', true),
                 'telp_penerima' => $this->input->post('telp_penerima', true),
                 'alamat_penerima' => $this->input->post('alamat_penerima', true),
-                'status_pickup' => 1
+                'status_pickup' => 1,
+                'sukses' => 1
             );
             $data2 = array(
                 'tgl_transaksi' => $this->input->post('tgl_order', true),
@@ -561,7 +563,8 @@ class Gerai extends CI_Controller
             'nama_penerima' => $this->input->post('nama_penerima', true),
             'telp_penerima' => $this->input->post('telp_penerima', true),
             'alamat_penerima' => $this->input->post('alamat_penerima', true),
-            'status_pickup' => 1
+            'status_pickup' => 1,
+            'sukses' => 1
         );
         $data2 = array(
             'tgl_transaksi' => $this->input->post('tgl_order', true),
@@ -586,6 +589,18 @@ class Gerai extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_gerai', $data);
         $this->load->view('gerai/transaksi/nota_order', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function pengiriman()
+    {
+        $data['title'] = 'Pengiriman Order';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['terima_order'] = $this->gerai->getStatusKurir();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_gerai', $data);
+        $this->load->view('gerai/transaksi/pengiriman', $data);
         $this->load->view('templates/footer');
     }
 }

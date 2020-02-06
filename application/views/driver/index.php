@@ -69,35 +69,39 @@
                     <div class="card card-primary card-outline">
                         <div class="card">
                             <div class="card-header p-2">
-                                <h4>Perjalanan Dinas</h4>
+                                <h4>List Pick Up</h4>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="activity">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-hover" id="table-id" style="font-size:14px;">
+                                            <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                                 <thead>
                                                     <th>#</th>
-                                                    <th>Tgl Dinas</th>
-                                                    <th>Armada</th>
-                                                    <th>Tujuan</th>
-                                                    <th>Biaya Dinas</th>
-                                                    <th>Km Awal</th>
-                                                    <th>Km Akhir</th>
-                                                    <th>BBM</th>
+                                                    <th>Kode Order</th>
+                                                    <th>Pengirim</th>
+                                                    <th>Alamat</th>
+                                                    <th>Penerima</th>
+                                                    <th>Alamat</th>
+                                                    <th>Status</th>
+                                                    <!-- <th>Edit</th> -->
                                                 </thead>
                                                 <tbody>
                                                     <?php $i = 1; ?>
-                                                    <?php foreach ($rute as $lu) : ?>
+                                                    <?php foreach ($order as $lu) : ?>
                                                         <tr>
                                                             <td><?php echo $i++; ?></td>
-                                                            <td><?php echo format_indo($lu['tgl_dinas']); ?></td>
-                                                            <td><?php echo $lu['nama_kendaraan']; ?></td>
-                                                            <td><?php echo $lu['nama_tujuan']; ?></td>
-                                                            <td>Rp. <?php echo rupiah($lu['biaya_dinas']); ?></td>
-                                                            <td><?php echo rupiah($lu['km_awal']); ?></td>
-                                                            <td><?php echo rupiah($lu['km_akhir']); ?></td>
-                                                            <td>Rp. <?php echo rupiah($lu['beli_bbm']); ?></td>
+                                                            <td><?php echo $lu['kode_order']; ?></td>
+                                                            <td><?php echo $lu['nama_pengirim']; ?></td>
+                                                            <td><?php echo $lu['alamat_pengirim']; ?></td>
+                                                            <td><?php echo $lu['nama_penerima']; ?></td>
+                                                            <td><?php echo $lu['alamat_penerima']; ?></td>
+                                                            <?php if ($lu['status_pickup'] == 1) : ?>
+                                                                <td><button type="button" class="btn btn-warning btn-sm btn-block">Pending</button></td>
+                                                            <?php else : ?>
+                                                                <td><button type="button" class="btn btn-success btn-sm btn-block">Picked Up</button></td>
+                                                            <?php endif; ?>
+                                                            <!-- <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td> -->
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

@@ -38,7 +38,7 @@
                          <div class="row">
                              <div class="col-md-12">
                                  <div class="table-responsive">
-                                     <h2>Nota Order Jarak</h2>
+                                     <h4>Nota Order Jarak</h4>
                                      <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
@@ -64,9 +64,9 @@
                                      </table>
                                  </div>
                              </div>
-                             <div class="col-md-12">
+                             <div class="col-md-12 mt-4">
                                  <div class="table-responsive">
-                                     <h2>Nota Order Volume</h2>
+                                     <h4>Nota Order Volume</h4>
                                      <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>

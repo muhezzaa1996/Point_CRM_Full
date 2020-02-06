@@ -41,13 +41,14 @@
                              Input Order Volume
                          </button>
                          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#status_sukses">
-                             Status Sukses
+                             Status Pick Up
                          </button>
                      </div>
                      <div class="card-body">
                          <div class="row">
                              <div class="col-md-12">
                                  <div class="table-responsive">
+                                     <h4>Penerimaan Order Jarak</h4>
                                      <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
@@ -56,6 +57,7 @@
                                              <th>Alamat</th>
                                              <th>Penerima</th>
                                              <th>Alamat</th>
+                                             <th>Total Bayar</th>
                                              <th>Status</th>
                                              <!-- <th>Edit</th> -->
                                          </thead>
@@ -69,6 +71,45 @@
                                                      <td><?php echo $lu['alamat_pengirim']; ?></td>
                                                      <td><?php echo $lu['nama_penerima']; ?></td>
                                                      <td><?php echo $lu['alamat_penerima']; ?></td>
+                                                     <td>Rp. <?php echo rupiah($lu['pembayaran']); ?></td>
+                                                     <?php if ($lu['status_pickup'] == 1) : ?>
+                                                         <td><button type="button" class="btn btn-warning btn-sm btn-block">Pending</button></td>
+                                                     <?php else : ?>
+                                                         <td><button type="button" class="btn btn-success btn-sm btn-block">Picked Up</button></td>
+                                                     <?php endif; ?>
+                                                     <!-- <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td> -->
+                                                 </tr>
+                                             <?php endforeach; ?>
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+                             <div class="col-md-12 mt-4">
+                                 <div class="table-responsive">
+                                     <h4>Penerimaan Order Volume</h4>
+                                     <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
+                                         <thead>
+                                             <th>#</th>
+                                             <th>Kode Order</th>
+                                             <th>Pengirim</th>
+                                             <th>Alamat</th>
+                                             <th>Penerima</th>
+                                             <th>Alamat</th>
+                                             <th>Total Bayar</th>
+                                             <th>Status</th>
+                                             <!-- <th>Edit</th> -->
+                                         </thead>
+                                         <tbody>
+                                             <?php $i = 1; ?>
+                                             <?php foreach ($terima_order_volume as $lu) : ?>
+                                                 <tr>
+                                                     <td><?php echo $i++; ?></td>
+                                                     <td><?php echo $lu['kode_order']; ?></td>
+                                                     <td><?php echo $lu['nama_pengirim']; ?></td>
+                                                     <td><?php echo $lu['alamat_pengirim']; ?></td>
+                                                     <td><?php echo $lu['nama_penerima']; ?></td>
+                                                     <td><?php echo $lu['alamat_penerima']; ?></td>
+                                                     <td>Rp. <?php echo rupiah($lu['pembayaran']); ?></td>
                                                      <?php if ($lu['status_pickup'] == 1) : ?>
                                                          <td><button type="button" class="btn btn-warning btn-sm btn-block">Pending</button></td>
                                                      <?php else : ?>
@@ -290,7 +331,7 @@
      <div class="modal-dialog modal-lg">
          <div class="modal-content">
              <div class="modal-header">
-                 <h4 class="modal-title">Status Sukses</h4>
+                 <h4 class="modal-title">Status Pick Up</h4>
              </div>
              <div class="modal-body">
                  <div class="box-body">

@@ -130,7 +130,6 @@ class Gerai_model extends CI_model
         $this->db->limit(1);
         $query = $this->db->get('tb_order');
         if ($query->num_rows() <> 0) {
-
             $data = $query->row();
             $kode = intval($data->kode) + 1;
         } else {
@@ -145,7 +144,18 @@ class Gerai_model extends CI_model
     {
         $this->db->select('*');
         $this->db->from('tb_order', 'DESC');
-        $this->db->where('status_pickup', 1);
+        $this->db->join('transaksi_jarak', 'transaksi_jarak.transaksi_kode = tb_order.kode_order');
+        $this->db->where('tb_order.status_pickup', 1);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getTerimaOrderVolume()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_order', 'DESC');
+        $this->db->join('transaksi_volume', 'transaksi_volume.transaksi_kode = tb_order.kode_order');
+        $this->db->where('tb_order.status_pickup', 1);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -155,6 +165,14 @@ class Gerai_model extends CI_model
         $this->db->select('*');
         $this->db->from('tb_order', 'DESC');
         $this->db->where('status_pickup', 0);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getStatusKurir()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_order', 'DESC');
         $query = $this->db->get();
         return $query->result_array();
     }
