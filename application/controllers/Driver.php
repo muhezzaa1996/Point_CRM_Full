@@ -184,13 +184,25 @@ class Driver extends CI_Controller
 
     public function data_pickup()
     {
-        $data['title'] = 'Pick Up Saya';
+        $data['title'] = 'Status Pick Up';
         $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
         $data['pickup'] = $this->driver->getPickup();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_driver', $data);
         $this->load->view('driver/data_pickup', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function status_order()
+    {
+        $data['title'] = 'Status Barang';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['pickup'] = $this->driver->getPickup();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_driver', $data);
+        $this->load->view('driver/status_order', $data);
         $this->load->view('templates/footer');
     }
 }

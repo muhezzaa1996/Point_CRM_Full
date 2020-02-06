@@ -32,13 +32,19 @@
                 <li class="nav-item">
                     <a href="<?php echo base_url('driver/list_pickup'); ?>" class="nav-link">
                         <i class="nav-icon fab fa-buffer"></i>
-                        <p class="text">Data Orderan</p>
+                        <p class="text">Data Order</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="<?php echo base_url('driver/data_pickup'); ?>" class="nav-link">
                         <i class="nav-icon fab fas fa-truck"></i>
                         <p class="text">Data Pick Up</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('driver/status_order'); ?>" class="nav-link">
+                        <i class="nav-icon far fa-paper-plane"></i>
+                        <p class="text">Status Order</p>
                     </a>
                 </li>
                 <li class="nav-header">END</li>
