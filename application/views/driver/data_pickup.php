@@ -46,7 +46,7 @@
                                              <th>Alamat</th>
                                              <th>Penerima</th>
                                              <th>Alamat</th>
-                                             <th>Status</th>
+                                             <th>Status Pickup</th>
                                          </thead>
                                          <tbody>
                                              <?php $i = 1; ?>
@@ -59,9 +59,9 @@
                                                      <td><?php echo $lu['nama_penerima']; ?></td>
                                                      <td><?php echo $lu['alamat_penerima']; ?></td>
                                                      <?php if ($lu['status_pickup'] == 1) : ?>
-                                                         <td><button type="button" class="btn btn-warning btn-sm btn-block">Pending</button></td>
+                                                         <td><button type="button" class="btn btn-warning btn-sm btn-block">PENDING</button></td>
                                                      <?php else : ?>
-                                                         <td><button type="button" class="btn btn-success btn-sm btn-block">Picked Up</button></td>
+                                                         <td><button type="button" class="btn btn-success btn-sm btn-block">SUKSES</button></td>
                                                      <?php endif; ?>
                                                  </tr>
                                              <?php endforeach; ?>

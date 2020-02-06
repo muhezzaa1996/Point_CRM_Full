@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         <img src="<?php echo base_url('assets/'); ?>dist/img/adonia.png" alt="ADONIA Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-bold ml-2">E-Klaim</span>
+        <span class="brand-text font-weight-bold ml-2">LOGISTIK</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -44,7 +44,7 @@
                 <li class="nav-item">
                     <a href="<?php echo base_url('driver/status_order'); ?>" class="nav-link">
                         <i class="nav-icon far fa-paper-plane"></i>
-                        <p class="text">Status Order</p>
+                        <p class="text">Status Kirim</p>
                     </a>
                 </li>
                 <li class="nav-header">END</li>
