@@ -144,7 +144,9 @@ class Driver extends CI_Controller
 
     public function list_pickup()
     {
-        $this->form_validation->set_rules('tgl_dinas', 'Tanggal Dinas', 'required|trim');
+        $this->form_validation->set_rules('order_kd', 'Kode Order', 'required|trim|is_unique[tb_pickup.order_kd]', array(
+            'is_unique' => 'Kode Order Sudah Ada'
+        ));
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'List Pick Up';
@@ -156,34 +158,21 @@ class Driver extends CI_Controller
             $this->load->view('driver/list_pickup', $data);
             $this->load->view('templates/footer');
         } else {
-
-            $sess_id = $this->session->userdata('id_user');
-            $config['upload_path']   = './assets/files/';
-            $config['allowed_types'] = 'jpeg|jpg|png';
-            $config['max_size']      = 2048;
-            $this->load->library('upload', $config);
-            $this->upload->do_upload('file1');
-            $file1 = $this->upload->data('file_name');;
-            $this->upload->do_upload('file2');
-            $file2 = $this->upload->data('file_name');;
+            $sess_id =   $sess_id = $this->session->userdata('id_user');
             $data = array(
-                'tgl_dinas' => $this->input->post('tgl_dinas', true),
-                'kendaraan_id' => $this->input->post('kendaraan_id', true),
-                'tujuan_id' => $this->input->post('tujuan_id', true),
-                'biaya_dinas' => $this->input->post('biaya_dinas', true),
-                'ket' => $this->input->post('ket', true),
-                'km_awal' => $this->input->post('km_awal', true),
-                'km_akhir' => $this->input->post('km_akhir', true),
-                'beli_bbm' => $this->input->post('beli_bbm', true),
-                'biaya_lain' => $this->input->post('biaya_lain', true),
-                'file1' => $file1,
-                'file2' => $file2,
-                'sess_id' => $sess_id,
-                'confirm' => 1
+                'tgl_pickup' => $this->input->post('tgl_pickup', true),
+                'order_kd' => $this->input->post('order_kd', true),
+                'sess_id' => $sess_id
             );
-            $this->db->insert('tb_perjalanan', $data);
-            $this->session->set_flashdata('message', 'Kirim data');
-            redirect('driver/rute');
+            $this->db->insert('tb_pickup', $data);
+
+            $id_order = $this->input->post('id_order');
+            $status_pickup = 0;
+            $this->db->set('status_pickup', $status_pickup);
+            $this->db->where('id_order', $id_order);
+            $this->db->update('tb_order');
+            $this->session->set_flashdata('message', 'Simpan data');
+            redirect('driver/list_pickup');
         }
     }
 
@@ -191,5 +180,17 @@ class Driver extends CI_Controller
     {
         $id_order = $_POST['id_order'];
         echo json_encode($this->db->get_where('tb_order', ['id_order' => $id_order])->row_array());
+    }
+
+    public function data_pickup()
+    {
+        $data['title'] = 'Pick Up Saya';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['pickup'] = $this->driver->getPickup();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_driver', $data);
+        $this->load->view('driver/data_pickup', $data);
+        $this->load->view('templates/footer');
     }
 }

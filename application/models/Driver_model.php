@@ -24,4 +24,16 @@ class Driver_model extends CI_model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function getPickup()
+    {
+        $sess_id = $this->session->userdata('id_user');
+        $this->db->select('*');
+        $this->db->from('tb_pickup');
+        $this->db->join('tb_order', 'order_kd = tb_order.kode_order');
+        $this->db->where('sess_id', $sess_id);
+        $this->db->where('status_pickup', 0);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

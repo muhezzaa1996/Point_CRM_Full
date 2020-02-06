@@ -1,6 +1,4 @@
  <!-- Content Wrapper. Contains page content -->
-
-
  <div class="content-wrapper">
      <!-- Content Header (Page header) -->
      <section class="content-header">
@@ -49,12 +47,10 @@
                                              <th>Penerima</th>
                                              <th>Alamat</th>
                                              <th>Status</th>
-                                             <th>Konfirmasi</th>
-                                             <!-- <th>Edit</th> -->
                                          </thead>
                                          <tbody>
                                              <?php $i = 1; ?>
-                                             <?php foreach ($order as $lu) : ?>
+                                             <?php foreach ($pickup as $lu) : ?>
                                                  <tr>
                                                      <td><?php echo $i++; ?></td>
                                                      <td><?php echo $lu['kode_order']; ?></td>
@@ -67,7 +63,6 @@
                                                      <?php else : ?>
                                                          <td><button type="button" class="btn btn-success btn-sm btn-block">Picked Up</button></td>
                                                      <?php endif; ?>
-                                                     <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Konfirmasi</button></td>
                                                  </tr>
                                              <?php endforeach; ?>
                                          </tbody>
@@ -83,53 +78,3 @@
      <!-- /.content -->
  </div>
  <!-- /.content-wrapper -->
-
-
- <div class="modal fade" id="edit-user">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h4 class="modal-title">Konfirmasi Pick Up</h4>
-             </div>
-             <div class="modal-body">
-                 <div class="box-body">
-                     <form action="<?php echo base_url('driver/list_pickup'); ?>" method="post">
-                         <div class="form-group">
-                             <label>Kode Order</label>
-                             <input type="hidden" name="id_order" id="id_order">
-                             <input type="text" class="form-control form-control-sm" name="order_kd" id="kode_order" readonly>
-                         </div>
-                         <div class="form-group">
-                             <label>Tgl Pickup</label>
-                             <input type="date" class="form-control form-control-sm" name="tgl_pickup" required>
-                         </div>
-                         <div class="box-footer">
-                             <button type="submit" class="btn btn-primary pull-right">Simpan Konfirmasi</button>
-                             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                         </div>
-                     </form>
-                 </div>
-             </div>
-             <!-- /.modal-content -->
-         </div>
-         <!-- /.modal-dialog -->
-     </div>
- </div>
-
- <script>
-     $('.tombol-edit').on('click', function() {
-         const id_order = $(this).data('id');
-         $.ajax({
-             url: '<?php echo base_url('driver/get_order'); ?>',
-             data: {
-                 id_order: id_order
-             },
-             method: 'post',
-             dataType: 'json',
-             success: function(data) {
-                 $('#kode_order').val(data.kode_order);
-                 $('#id_order').val(data.id_order);
-             }
-         });
-     });
- </script>
