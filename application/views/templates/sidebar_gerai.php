@@ -92,7 +92,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?php echo base_url('gerai/nota_order'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Nota Order</p>
                             </a>

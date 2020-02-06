@@ -35,10 +35,13 @@
                  <div class="card">
                      <div class="card-header">
                          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#trans_jarak">
-                             Transaksi Jarak
+                             Input Order Jarak
                          </button>
                          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#trans_volume">
-                             Transaksi Volume
+                             Input Order Volume
+                         </button>
+                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#status_sukses">
+                             Status Sukses
                          </button>
                      </div>
                      <div class="card-body">
@@ -71,23 +74,14 @@
                                                      <?php else : ?>
                                                          <td><button type="button" class="btn btn-success btn-sm btn-block">Picked Up</button></td>
                                                      <?php endif; ?>
-
                                                      <!-- <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td> -->
                                                  </tr>
                                              <?php endforeach; ?>
                                          </tbody>
                                      </table>
                                  </div>
-
                              </div>
-                             <div class="col-md-12">
-
-
-                             </div>
-
-
                          </div>
-
                      </div>
                  </div>
              </div>
@@ -203,7 +197,7 @@
              </div>
              <div class="modal-body">
                  <div class="box-body">
-                     <form action="<?php echo base_url('gerai/mst_toko'); ?>" method="post" id="myform">
+                     <form action="<?php echo base_url('gerai/add_order_volume'); ?>" method="post" id="myform">
                          <div class="row">
                              <div class="col-md-6">
                                  <div class="form-group">
@@ -214,7 +208,7 @@
                              <div class="col-md-6">
                                  <div class="form-group">
                                      <label>Kode Order</label>
-                                     <input type="char" class="form-control form-control-sm" name="kode_order" value="<?php echo $kode_order_volume; ?>" disabled="">
+                                     <input type="char" class="form-control form-control-sm" name="kode_order" value="<?php echo $kode_order_volume; ?>" readonly>
                                  </div>
                              </div>
                          </div>
@@ -222,37 +216,37 @@
                              <div class="col-md-6">
                                  <div class="form-group">
                                      <label>Nama Pengirim</label>
-                                     <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                                     <input type="text" class="form-control form-control-sm" name="nama_pengirim" required>
                                  </div>
                              </div>
                              <div class="col-md-6">
                                  <div class="form-group">
                                      <label>No Telp Pengirim</label>
-                                     <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                                     <input type="text" class="form-control form-control-sm" name="telp_pengirim" required>
                                  </div>
                              </div>
                          </div>
                          <div class="form-group">
                              <label>Alamat Pengirim</label>
-                             <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                             <input type="text" class="form-control form-control-sm" name="alamat_pengirim" required>
                          </div>
                          <div class="row">
                              <div class="col-md-6">
                                  <div class="form-group">
                                      <label>Nama Penerima</label>
-                                     <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                                     <input type="text" class="form-control form-control-sm" name="nama_penerima" required>
                                  </div>
                              </div>
                              <div class="col-md-6">
                                  <div class="form-group">
                                      <label>No Telp Penerima</label>
-                                     <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                                     <input type="text" class="form-control form-control-sm" name="telp_penerima" required>
                                  </div>
                              </div>
                          </div>
                          <div class="form-group">
                              <label>Alamat Penerima</label>
-                             <input type="text" class="form-control form-control-sm" name="alamat_toko" required>
+                             <input type="text" class="form-control form-control-sm" name="alamat_penerima" required>
                          </div>
                          <div class="row">
                              <div class="col-md-5">
@@ -268,15 +262,15 @@
                              </div>
                              <div class="col-md-2">
                                  <label for="exampleFormControlSelect1">Harga</label>
-                                 <input type="text" class="form-control form-control-sm" id="show_only" disabled="">
+                                 <input type="text" class="form-control form-control-sm" name="nominal" id="show_only" readonly>
                              </div>
                              <div class="col-md-2">
                                  <label for="exampleFormControlSelect1">Volume</label>
-                                 <input type="number" class="numerical form-control form-control-sm" id="jumlah">
+                                 <input type="number" class="numerical form-control form-control-sm" name="volume" id="jumlah">
                              </div>
                              <div class="col-md-3">
                                  <label for="exampleFormControlSelect1">Total Harga</label>
-                                 <input type="text" class="form-control form-control-sm" id="total" disabled="">
+                                 <input type="text" class="form-control form-control-sm" name="pembayaran" id="total" readonly>
                              </div>
                          </div>
                          <div class="box-footer">
@@ -290,6 +284,57 @@
          </div>
      </div>
  </div>
+
+
+ <div class="modal fade" id="status_sukses">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h4 class="modal-title">Status Sukses</h4>
+             </div>
+             <div class="modal-body">
+                 <div class="box-body">
+                     <div class="table-responsive">
+                         <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
+                             <thead>
+                                 <th>#</th>
+                                 <th>Kode Order</th>
+                                 <th>Pengirim</th>
+                                 <th>Alamat</th>
+                                 <th>Penerima</th>
+                                 <th>Alamat</th>
+                                 <th>Status</th>
+                                 <!-- <th>Edit</th> -->
+                             </thead>
+                             <tbody>
+                                 <?php $i = 1; ?>
+                                 <?php foreach ($order_sukses as $lu) : ?>
+                                     <tr>
+                                         <td><?php echo $i++; ?></td>
+                                         <td><?php echo $lu['kode_order']; ?></td>
+                                         <td><?php echo $lu['nama_pengirim']; ?></td>
+                                         <td><?php echo $lu['alamat_pengirim']; ?></td>
+                                         <td><?php echo $lu['nama_penerima']; ?></td>
+                                         <td><?php echo $lu['alamat_penerima']; ?></td>
+                                         <?php if ($lu['status_pickup'] == 1) : ?>
+                                             <td><button type="button" class="btn btn-warning btn-sm btn-block">Pending</button></td>
+                                         <?php else : ?>
+                                             <td><button type="button" class="btn btn-success btn-sm btn-block">Picked Up</button></td>
+                                         <?php endif; ?>
+                                         <!-- <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td> -->
+                                     </tr>
+                                 <?php endforeach; ?>
+                             </tbody>
+                         </table>
+                     </div>
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+
 
 
 

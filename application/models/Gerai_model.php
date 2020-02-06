@@ -149,4 +149,13 @@ class Gerai_model extends CI_model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function getOrderSukses()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_order', 'DESC');
+        $this->db->where('status_pickup', 0);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

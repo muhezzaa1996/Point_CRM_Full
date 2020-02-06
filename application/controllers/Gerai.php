@@ -517,6 +517,7 @@ class Gerai extends CI_Controller
             $data['kode_order_jarak'] = $this->gerai->getKodeOrderJarak();
             $data['kode_order_volume'] = $this->gerai->getKodeOrderVolume();
             $data['terima_order'] = $this->gerai->getTerimaOrder();
+            $data['order_sukses'] = $this->gerai->getOrderSukses();
             $data['tarif'] = $this->db->get('mst_tarif')->result_array();
 
             $this->load->view('templates/header', $data);
@@ -533,7 +534,7 @@ class Gerai extends CI_Controller
                 'nama_penerima' => $this->input->post('nama_penerima', true),
                 'telp_penerima' => $this->input->post('telp_penerima', true),
                 'alamat_penerima' => $this->input->post('alamat_penerima', true),
-                'status' => 1
+                'status_pickup' => 1
             );
             $data2 = array(
                 'tgl_transaksi' => $this->input->post('tgl_order', true),
@@ -547,5 +548,44 @@ class Gerai extends CI_Controller
             $this->session->set_flashdata('message', 'Tambah data');
             redirect('gerai/terima_order');
         }
+    }
+
+    public function add_order_volume()
+    {
+        $data = array(
+            'tgl_order' => $this->input->post('tgl_order', true),
+            'kode_order' => $this->input->post('kode_order', true),
+            'nama_pengirim' => $this->input->post('nama_pengirim', true),
+            'telp_pengirim' => $this->input->post('telp_pengirim', true),
+            'alamat_pengirim' => $this->input->post('alamat_pengirim', true),
+            'nama_penerima' => $this->input->post('nama_penerima', true),
+            'telp_penerima' => $this->input->post('telp_penerima', true),
+            'alamat_penerima' => $this->input->post('alamat_penerima', true),
+            'status_pickup' => 1
+        );
+        $data2 = array(
+            'tgl_transaksi' => $this->input->post('tgl_order', true),
+            'transaksi_kode' => $this->input->post('kode_order', true),
+            'nominal' => $this->input->post('nominal', true),
+            'volume' => $this->input->post('volume', true),
+            'pembayaran' => $this->input->post('pembayaran', true)
+        );
+        $this->db->insert('tb_order', $data);
+        $this->db->insert('transaksi_volume', $data2);
+        $this->session->set_flashdata('message', 'Tambah data');
+        redirect('gerai/terima_order');
+    }
+
+    public function nota_order()
+    {
+        $data['title'] = 'Nota Order';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['nota_order_jarak'] = $this->db->get('transaksi_jarak')->result_array();
+        $data['nota_order_volume'] = $this->db->get('transaksi_volume')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_gerai', $data);
+        $this->load->view('gerai/transaksi/nota_order', $data);
+        $this->load->view('templates/footer');
     }
 }
