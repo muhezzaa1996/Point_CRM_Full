@@ -48,9 +48,8 @@
                                              <th>Alamat</th>
                                              <th>Penerima</th>
                                              <th>Alamat</th>
-                                             <th>Status</th>
+                                             <th>Status Kirim</th>
                                              <th>Konfirmasi</th>
-                                             <!-- <th>Edit</th> -->
                                          </thead>
                                          <tbody>
                                              <?php $i = 1; ?>
@@ -86,22 +85,23 @@
 
 
  <div class="modal fade" id="edit-user">
-     <div class="modal-dialog">
+     <div class="modal-dialog modal-sm">
          <div class="modal-content">
              <div class="modal-header">
-                 <h4 class="modal-title">Konfirmasi Pick Up</h4>
+                 <h4 class="modal-title">Konfirmasi Terkirim</h4>
              </div>
              <div class="modal-body">
                  <div class="box-body">
-                     <form action="<?php echo base_url('driver/list_pickup'); ?>" method="post">
+                     <form action="<?php echo base_url('driver/update_kirim'); ?>" method="post">
                          <div class="form-group">
                              <label>Kode Order</label>
                              <input type="hidden" name="id_order" id="id_order">
+                             <input type="hidden" name="id_pickup" id="id_pickup">
                              <input type="text" class="form-control form-control-sm" name="order_kd" id="kode_order" readonly>
                          </div>
                          <div class="form-group">
-                             <label>Tgl Pickup</label>
-                             <input type="date" class="form-control form-control-sm" name="tgl_pickup" required>
+                             <label>Tgl Kirim</label>
+                             <input type="date" class="form-control form-control-sm" name="tgl_kirim" value="<?php echo date('Y-m-d'); ?>" readonly>
                          </div>
                          <div class="box-footer">
                              <button type="submit" class="btn btn-primary pull-right">Simpan Konfirmasi</button>
@@ -110,9 +110,7 @@
                      </form>
                  </div>
              </div>
-             <!-- /.modal-content -->
          </div>
-         <!-- /.modal-dialog -->
      </div>
  </div>
 
@@ -120,7 +118,7 @@
      $('.tombol-edit').on('click', function() {
          const id_order = $(this).data('id');
          $.ajax({
-             url: '<?php echo base_url('driver/get_order'); ?>',
+             url: '<?php echo base_url('driver/get_kirim'); ?>',
              data: {
                  id_order: id_order
              },
@@ -128,6 +126,7 @@
              dataType: 'json',
              success: function(data) {
                  $('#kode_order').val(data.kode_order);
+                 $('#id_pickup').val(data.id_pickup);
                  $('#id_order').val(data.id_order);
              }
          });

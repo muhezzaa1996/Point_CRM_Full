@@ -36,4 +36,26 @@ class Driver_model extends CI_model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function getKirim()
+    {
+        $sess_id = $this->session->userdata('id_user');
+        $this->db->select('*');
+        $this->db->from('tb_pickup');
+        $this->db->join('tb_order', 'order_kd = tb_order.kode_order');
+        $this->db->where('sess_id', $sess_id);
+        $this->db->where('sukses', 1);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getKirimData($id_order)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_pickup');
+        $this->db->join('tb_order', 'order_kd = tb_order.kode_order');
+        $this->db->where('id_order', $id_order);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
 }

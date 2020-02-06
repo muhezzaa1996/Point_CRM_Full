@@ -198,11 +198,34 @@ class Driver extends CI_Controller
     {
         $data['title'] = 'Status Barang';
         $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['pickup'] = $this->driver->getPickup();
+        $data['pickup'] = $this->driver->getKirim();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_driver', $data);
         $this->load->view('driver/status_order', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function update_kirim()
+    {
+        $id_order = $this->input->post('id_order');
+        $sukses = 0;
+        $this->db->set('sukses', $sukses);
+        $this->db->where('id_order', $id_order);
+        $this->db->update('tb_order');
+
+        $id_pickup = $this->input->post('id_pickup');
+        $tgl_kirim = $this->input->post('tgl_kirim');;
+        $this->db->set('tgl_kirim', $tgl_kirim);
+        $this->db->where('id_pickup', $id_pickup);
+        $this->db->update('tb_pickup');
+        $this->session->set_flashdata('message', 'Simpan data');
+        redirect('driver/list_pickup');
+    }
+
+    public function get_kirim()
+    {
+        $id_order = $_POST['id_order'];
+        echo json_encode($this->driver->getKirimData($id_order));
     }
 }
