@@ -49,7 +49,7 @@
                                              <th>Penerima</th>
                                              <th>Alamat</th>
                                              <th>Status</th>
-                                             <th>Konfirmasi</th>
+                                             <th>Konfirmasi Pickup</th>
                                              <!-- <th>Edit</th> -->
                                          </thead>
                                          <tbody>
@@ -86,7 +86,7 @@
 
 
  <div class="modal fade" id="edit-user">
-     <div class="modal-dialog">
+     <div class="modal-dialog modal-sm">
          <div class="modal-content">
              <div class="modal-header">
                  <h4 class="modal-title">Konfirmasi Pick Up</h4>

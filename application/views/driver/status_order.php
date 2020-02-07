@@ -34,7 +34,9 @@
              <div class="card card-primary card-outline">
                  <div class="card">
                      <div class="card-header">
-
+                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-user">
+                             Status Terkirim
+                         </button>
                      </div>
                      <div class="card-body">
                          <div class="row">
@@ -66,7 +68,11 @@
                                                      <?php else : ?>
                                                          <td><button type="button" class="btn btn-success btn-sm btn-block">Sukses</button></td>
                                                      <?php endif; ?>
-                                                     <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Konfirmasi</button></td>
+                                                     <?php if ($lu['status_pickup'] == 1) : ?>
+                                                         <td><button type="button" class="btn btn-warning btn-sm btn-block">Pending</button></td>
+                                                     <?php else : ?>
+                                                         <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_order']; ?>" data-toggle="modal" data-target="#edit-user">Konfirmasi</button></td>
+                                                     <?php endif; ?>
                                                  </tr>
                                              <?php endforeach; ?>
                                          </tbody>
@@ -113,6 +119,62 @@
          </div>
      </div>
  </div>
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="add-user">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h4 class="modal-title">Status Kirim Sukses</h4>
+             </div>
+             <div class="modal-body">
+                 <div class="box-body">
+                     <div class="table-responsive">
+                         <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
+                             <thead>
+                                 <th>#</th>
+                                 <th>Kode Order</th>
+                                 <th>Pengirim</th>
+                                 <th>Alamat</th>
+                                 <th>Penerima</th>
+                                 <th>Alamat</th>
+                                 <th>Status Kirim</th>
+                             </thead>
+                             <tbody>
+                                 <?php $i = 1; ?>
+                                 <?php foreach ($kirim as $lu) : ?>
+                                     <tr>
+                                         <td><?php echo $i++; ?></td>
+                                         <td><?php echo $lu['kode_order']; ?></td>
+                                         <td><?php echo $lu['nama_pengirim']; ?></td>
+                                         <td><?php echo $lu['alamat_pengirim']; ?></td>
+                                         <td><?php echo $lu['nama_penerima']; ?></td>
+                                         <td><?php echo $lu['alamat_penerima']; ?></td>
+                                         <?php if ($lu['sukses'] == 1) : ?>
+                                             <td><button type="button" class="btn btn-warning btn-sm btn-block">Pending</button></td>
+                                         <?php else : ?>
+                                             <td><button type="button" class="btn btn-success btn-sm btn-block">Sukses</button></td>
+                                         <?php endif; ?>
+                                     </tr>
+                                 <?php endforeach; ?>
+                             </tbody>
+                         </table>
+                     </div>
+                     <hr>
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                 </div>
+             </div>
+             <!-- /.modal-content -->
+         </div>
+         <!-- /.modal-dialog -->
+     </div>
+ </div>
+
+
+
+
+
 
  <script>
      $('.tombol-edit').on('click', function() {

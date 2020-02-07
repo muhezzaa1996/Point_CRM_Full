@@ -199,6 +199,7 @@ class Driver extends CI_Controller
         $data['title'] = 'Status Barang';
         $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
         $data['pickup'] = $this->driver->getKirim();
+        $data['kirim'] = $this->driver->getKirimSukses();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_driver', $data);
@@ -220,7 +221,7 @@ class Driver extends CI_Controller
         $this->db->where('id_pickup', $id_pickup);
         $this->db->update('tb_pickup');
         $this->session->set_flashdata('message', 'Simpan data');
-        redirect('driver/list_pickup');
+        redirect('driver/status_order');
     }
 
     public function get_kirim()
