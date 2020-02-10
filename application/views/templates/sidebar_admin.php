@@ -99,19 +99,19 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?php echo base_url('admin/terima_order'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Penerimaan Order</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?php echo base_url('admin/nota_order'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Nota Order</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?php echo base_url('admin/pengiriman'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pengiriman Order</p>
                             </a>
