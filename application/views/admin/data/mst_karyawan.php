@@ -46,6 +46,7 @@
                                         <th>Email</th>
                                         <th>No HP</th>
                                         <th>Level</th>
+                                        <th>Username</th>
                                         <th>Status</th>
                                         <th>Register</th>
                                         <th>Edit</th>
@@ -60,6 +61,7 @@
                                                 <td><?php echo $lu['email']; ?></td>
                                                 <td><?php echo $lu['hp']; ?></td>
                                                 <td><?php echo $lu['level']; ?></td>
+                                                <td><?php echo $lu['username']; ?></td>
                                                 <?php if ($lu['is_active'] == 1) : ?>
                                                     <td>Aktif</td>
                                                 <?php else : ?>
@@ -100,6 +102,7 @@
                                 <option value="Admin">ADMINISTRATOR</option>
                                 <option value="Supervisor">SUPERVISOR</option>
                                 <option value="Driver">DRIVER</option>
+                                <option value="User">USER</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -170,6 +173,7 @@
                                 <option value="Admin">ADMINISTRATOR</option>
                                 <option value="Supervisor">SUPERVISOR</option>
                                 <option value="Driver">DRIVER</option>
+                                <option value="User">USER</option>
                             </select>
                         </div>
                         <div class="form-group">
