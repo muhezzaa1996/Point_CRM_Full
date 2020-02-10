@@ -25,7 +25,7 @@ class spv extends CI_Controller
             $data['count_user'] = $this->spv->countJmlUser();
             $data['user_aktif'] = $this->spv->countUserAktif();
             $data['user_tak_aktif'] = $this->spv->countUserTakAktif();
-            $data['list_user'] = $this->db->get_where('mst_user', ['level' => 'Driver'])->result_array();
+            $data['list_user'] = $this->db->get('mst_user')->result_array();
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_spv', $data);
@@ -78,7 +78,8 @@ class spv extends CI_Controller
             $data['count_user'] = $this->spv->countJmlUser();
             $data['user_aktif'] = $this->spv->countUserAktif();
             $data['user_tak_aktif'] = $this->spv->countUserTakAktif();
-            $data['list_user'] = $this->db->get_where('mst_user', ['level' => 'Driver'])->result_array();
+            $data['list_user'] = $this->db->get('mst_user')->result_array();
+
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_spv', $data);
@@ -101,6 +102,79 @@ class spv extends CI_Controller
         }
     }
 
+    public function man_user()
+    {
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[mst_user.username]', array(
+            'is_unique' => 'Username sudah ada'
+        ));
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', array(
+            'matches' => 'Password tidak sama',
+            'min_length' => 'password min 3 karakter'
+        ));
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Management Karyawan';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['list_user'] = $this->db->get('mst_user')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_spv', $data);
+            $this->load->view('spv/data/man_user', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama' => $this->input->post('nama', true),
+                'email' => $this->input->post('email', true),
+                'hp' => $this->input->post('hp', true),
+                'level' => $this->input->post('level', true),
+                'username' => $this->input->post('username', true),
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'date_created' => date('Y/m/d'),
+                'image' => 'default.jpg',
+                'is_active' => 1
+            );
+            $this->db->insert('mst_user', $data);
+            $this->session->set_flashdata('message', 'Tambah user');
+            redirect('spv/man_user');
+        }
+    }
+
+    public function edit_user()
+    {
+        echo json_encode($this->spv->getUserEdit($_POST['id_user']));
+    }
+
+    public function proses_edit_user()
+    {
+        $id_user = $this->input->post('id_user');
+        $nama = $this->input->post('nama');
+        $email = $this->input->post('email');
+        $hp = $this->input->post('hp');
+        $level = $this->input->post('level');
+        $is_active = $this->input->post('is_active');
+
+        $this->db->set('nama', $nama);
+        $this->db->set('email', $email);
+        $this->db->set('hp', $hp);
+        $this->db->set('level', $level);
+        $this->db->set('is_active', $is_active);
+
+        $this->db->where('id_user', $id_user);
+        $this->db->update('mst_user');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('spv/man_user');
+    }
+
+    public function del_user($id_user)
+    {
+        $this->db->where('id_user', $id_user);
+        $this->db->delete('mst_user');
+        $this->session->set_flashdata('message', 'Hapus user');
+        redirect('spv/man_user');
+    }
+
     public function mst_kendaraan()
     {
 
@@ -115,7 +189,7 @@ class spv extends CI_Controller
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_spv', $data);
-            $this->load->view('spv/mst_kendaraan', $data);
+            $this->load->view('spv/data/mst_kendaraan', $data);
             $this->load->view('templates/footer');
         } else {
             $data = array(
@@ -163,7 +237,7 @@ class spv extends CI_Controller
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar_spv', $data);
-            $this->load->view('spv/mst_tujuan', $data);
+            $this->load->view('spv/data/mst_tujuan', $data);
             $this->load->view('templates/footer');
         } else {
             $data = array(
@@ -206,11 +280,23 @@ class spv extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_spv', $data);
-        $this->load->view('spv/mst_driver', $data);
+        $this->load->view('spv/data/mst_driver', $data);
         $this->load->view('templates/footer');
     }
 
-    public function rute()
+    public function mst_spv()
+    {
+        $data['title'] = 'Data Supervisor';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['driver'] = $this->db->get_where('mst_user', ['level' => 'Supervisor'])->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_spv', $data);
+        $this->load->view('spv/data/mst_spv', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function perjalanan()
     {
         $data['title'] = 'Perjalanan Dinas';
         $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
@@ -220,36 +306,417 @@ class spv extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_spv', $data);
-        $this->load->view('spv/rute', $data);
+        $this->load->view('spv/perjalanan', $data);
         $this->load->view('templates/footer');
     }
 
-    public function confirm($id_route)
+    public function mst_cabang()
     {
-        $data['title'] = 'Konfirmasi Biaya Klaim';
+        $this->form_validation->set_rules('nama_cabang', 'Nama Cabang', 'required|trim|is_unique[mst_cabang.nama_cabang]', array(
+            'is_unique' => 'Nama Cabang sudah ada'
+        ));
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Cabang';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['cabang'] = $this->db->get('mst_cabang')->result_array();
+            $data['kode_cabang'] = $this->spv->getKodeCabang();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_spv', $data);
+            $this->load->view('spv/data/mst_cabang', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'kode_cabang' => $this->input->post('kode_cabang', true),
+                'nama_cabang' => $this->input->post('nama_cabang', true),
+                'alamat_cabang' => $this->input->post('alamat_cabang', true),
+                'no_telp_cab' => $this->input->post('no_telp_cab', true),
+                'manager' => $this->input->post('manager', true)
+            );
+            $this->db->insert('mst_cabang', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('spv/mst_cabang');
+        }
+    }
+
+    public function get_cabang()
+    {
+        $id_cabang = $_POST['id_cabang'];
+        echo json_encode($this->db->get_where('mst_cabang', ['id_cabang' => $id_cabang])->row_array());
+    }
+
+    public function edit_cabang()
+    {
+        $id_cabang = $this->input->post('id_cabang', true);
+        $nama_cabang = $this->input->post('nama_cabang', true);
+        $alamat_cabang = $this->input->post('alamat_cabang', true);
+        $no_telp_cab = $this->input->post('no_telp_cab', true);
+        $manager = $this->input->post('manager', true);
+        $this->db->set('nama_cabang', $nama_cabang);
+        $this->db->set('alamat_cabang', $alamat_cabang);
+        $this->db->set('no_telp_cab', $no_telp_cab);
+        $this->db->set('manager', $manager);
+        $this->db->where('id_cabang', $id_cabang);
+        $this->db->update('mst_cabang');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('spv/mst_cabang');
+    }
+
+    public function mst_bank()
+    {
+        $this->form_validation->set_rules('nama_bank', 'Nama Bank', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Bank';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['bank'] = $this->db->get('mst_bank')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_spv', $data);
+            $this->load->view('spv/data/mst_bank', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_bank' => $this->input->post('nama_bank', true),
+                'no_rek' => $this->input->post('no_rek', true),
+                'cabang' => $this->input->post('cabang', true),
+                'kota' => $this->input->post('kota', true)
+            );
+            $this->db->insert('mst_bank', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('spv/mst_bank');
+        }
+    }
+
+    public function get_bank()
+    {
+        $id_bank = $_POST['id_bank'];
+        echo json_encode($this->db->get_where('mst_bank', ['id_bank' => $id_bank])->row_array());
+    }
+
+    public function edit_bank()
+    {
+        $id_bank = $this->input->post('id_bank', true);
+        $nama_bank = $this->input->post('nama_bank', true);
+        $no_rek = $this->input->post('no_rek', true);
+        $cabang = $this->input->post('cabang', true);
+        $kota = $this->input->post('kota', true);
+        $this->db->set('nama_bank', $nama_bank);
+        $this->db->set('no_rek', $no_rek);
+        $this->db->set('cabang', $cabang);
+        $this->db->set('kota', $kota);
+        $this->db->where('id_bank', $id_bank);
+        $this->db->update('mst_bank');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('spv/mst_bank');
+    }
+
+    public function mst_toko()
+    {
+        $this->form_validation->set_rules('diskon', 'Diskon', 'required|trim|greater_than[0]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Toko';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['toko'] = $this->db->get('mst_toko')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_spv', $data);
+            $this->load->view('spv/data/mst_toko', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'pemilik' => $this->input->post('pemilik', true),
+                'nama_toko' => $this->input->post('nama_toko', true),
+                'alamat_toko' => $this->input->post('alamat_toko', true),
+                'telp_toko' => $this->input->post('telp_toko', true),
+                'diskon' => $this->input->post('diskon', true),
+                'npwp' => $this->input->post('npwp', true)
+            );
+            $this->db->insert('mst_toko', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('spv/mst_toko');
+        }
+    }
+
+
+    public function get_toko()
+    {
+        $id_toko = $_POST['id_toko'];
+        echo json_encode($this->db->get_where('mst_toko', ['id_toko' => $id_toko])->row_array());
+    }
+
+    public function edit_toko()
+    {
+        $id_toko = $this->input->post('id_toko', true);
+        $pemilik = $this->input->post('pemilik', true);
+        $nama_toko = $this->input->post('nama_toko', true);
+        $alamat_toko = $this->input->post('alamat_toko', true);
+        $telp_toko = $this->input->post('telp_toko', true);
+        $diskon = $this->input->post('diskon', true);
+        $npwp = $this->input->post('npwp', true);
+        $this->db->set('pemilik', $pemilik);
+        $this->db->set('nama_toko', $nama_toko);
+        $this->db->set('alamat_toko', $alamat_toko);
+        $this->db->set('telp_toko', $telp_toko);
+        $this->db->set('diskon', $diskon);
+        $this->db->set('npwp', $npwp);
+        $this->db->where('id_toko', $id_toko);
+        $this->db->update('mst_toko');
+        $this->session->set_flashdata('message', 'Ubah data');
+        redirect('spv/mst_toko');
+    }
+
+    public function mst_karyawan()
+    {
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[mst_user.username]', array(
+            'is_unique' => 'Username sudah ada'
+        ));
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', array(
+            'matches' => 'Password tidak sama',
+            'min_length' => 'password min 3 karakter'
+        ));
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Karyawan';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['list_user'] = $this->db->get('mst_user')->result_array();
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_spv', $data);
+            $this->load->view('spv/data/mst_karyawan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama' => $this->input->post('nama', true),
+                'email' => $this->input->post('email', true),
+                'hp' => $this->input->post('hp', true),
+                'level' => $this->input->post('level', true),
+                'username' => $this->input->post('username', true),
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'date_created' => date('Y/m/d'),
+                'image' => 'default.jpg',
+                'is_active' => 1
+            );
+            $this->db->insert('mst_user', $data);
+            $this->session->set_flashdata('message', 'Tambah user');
+            redirect('spv/mst_karyawan');
+        }
+    }
+
+    public function proses_edit_karyawan()
+    {
+        $id_user = $this->input->post('id_user');
+        $nama = $this->input->post('nama');
+        $email = $this->input->post('email');
+        $hp = $this->input->post('hp');
+        $level = $this->input->post('level');
+        $is_active = $this->input->post('is_active');
+
+        $this->db->set('nama', $nama);
+        $this->db->set('email', $email);
+        $this->db->set('hp', $hp);
+        $this->db->set('level', $level);
+        $this->db->set('is_active', $is_active);
+
+        $this->db->where('id_user', $id_user);
+        $this->db->update('mst_user');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('spv/mst_karyawan');
+    }
+
+    public function mst_tarif()
+    {
+        $this->form_validation->set_rules('kota_asal', 'Kota Asal', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Tarif';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['tarif'] = $this->db->get('mst_tarif')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_spv', $data);
+            $this->load->view('spv/data/mst_tarif', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'kota_asal' => $this->input->post('kota_asal', true),
+                'kota_tujuan' => $this->input->post('kota_tujuan', true),
+                'tarif_volume' => $this->input->post('tarif_volume', true),
+                'tarif_jarak' => $this->input->post('tarif_jarak', true)
+            );
+            $this->db->insert('mst_tarif', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('spv/mst_tarif');
+        }
+    }
+
+    public function get_tarif()
+    {
+        $id_tarif = $_POST['id_tarif'];
+        echo json_encode($this->db->get_where('mst_tarif', ['id_tarif' => $id_tarif])->row_array());
+    }
+
+    public function edit_tarif()
+    {
+        $id_tarif = $this->input->post('id_tarif');
+        $kota_asal = $this->input->post('kota_asal');
+        $kota_tujuan = $this->input->post('kota_tujuan');
+        $tarif_volume = $this->input->post('tarif_volume');
+        $tarif_jarak = $this->input->post('tarif_jarak');
+
+        $this->db->set('kota_asal', $kota_asal);
+        $this->db->set('kota_tujuan', $kota_tujuan);
+        $this->db->set('tarif_volume', $tarif_volume);
+        $this->db->set('tarif_jarak', $tarif_jarak);
+
+        $this->db->where('id_tarif', $id_tarif);
+        $this->db->update('mst_tarif');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('spv/mst_tarif');
+    }
+
+    public function mst_biaya()
+    {
+        $this->form_validation->set_rules('nama_biaya', 'Nama Biaya', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Data Biaya Operasional';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['biaya'] = $this->db->get('mst_biaya')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_spv', $data);
+            $this->load->view('spv/data/mst_biaya', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'nama_biaya' => $this->input->post('nama_biaya', true),
+                'jml_biaya' => $this->input->post('jml_biaya', true),
+            );
+            $this->db->insert('mst_biaya', $data);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('spv/mst_biaya');
+        }
+    }
+
+    public function get_biaya()
+    {
+        $id_biaya = $_POST['id_biaya'];
+        echo json_encode($this->db->get_where('mst_biaya', ['id_biaya' => $id_biaya])->row_array());
+    }
+
+    public function edit_biaya()
+    {
+        $id_biaya = $this->input->post('id_biaya');
+        $nama_biaya = $this->input->post('nama_biaya');
+        $jml_biaya = $this->input->post('jml_biaya');
+
+        $this->db->set('nama_biaya', $nama_biaya);
+        $this->db->set('jml_biaya', $jml_biaya);
+
+        $this->db->where('id_biaya', $id_biaya);
+        $this->db->update('mst_biaya');
+        $this->session->set_flashdata('message', 'Update data');
+        redirect('spv/mst_biaya');
+    }
+
+    public function nota_order()
+    {
+        $data['title'] = 'Nota Order';
         $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['confirm'] = $this->spv->getKonfirmasi($id_route);
+        $data['nota_order_jarak'] = $this->db->get('transaksi_jarak')->result_array();
+        $data['nota_order_volume'] = $this->db->get('transaksi_volume')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_spv', $data);
-        $this->load->view('spv/confirm', $data);
+        $this->load->view('spv/transaksi/nota_order', $data);
         $this->load->view('templates/footer');
     }
 
-    public function get_image()
+    public function terima_order()
     {
-        $id_route = $_POST['id_route'];
-        echo json_encode($this->db->get_where('tb_perjalanan', ['id_route' => $id_route])->row_array());
+        $this->form_validation->set_rules('tgl_order', 'Tanggal Order', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Penerimaan Order';
+            $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['kode_order_jarak'] = $this->spv->getKodeOrderJarak();
+            $data['kode_order_volume'] = $this->spv->getKodeOrderVolume();
+            $data['terima_order'] = $this->spv->getTerimaOrder();
+            $data['terima_order_volume'] = $this->spv->getTerimaOrderVolume();
+            $data['order_sukses'] = $this->spv->getOrderSukses();
+            $data['tarif'] = $this->db->get('mst_tarif')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar_spv', $data);
+            $this->load->view('spv/transaksi/terima_order', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'tgl_order' => $this->input->post('tgl_order', true),
+                'kode_order' => $this->input->post('kode_order', true),
+                'nama_pengirim' => $this->input->post('nama_pengirim', true),
+                'telp_pengirim' => $this->input->post('telp_pengirim', true),
+                'alamat_pengirim' => $this->input->post('alamat_pengirim', true),
+                'nama_penerima' => $this->input->post('nama_penerima', true),
+                'telp_penerima' => $this->input->post('telp_penerima', true),
+                'alamat_penerima' => $this->input->post('alamat_penerima', true),
+                'status_pickup' => 1,
+                'sukses' => 1
+            );
+            $data2 = array(
+                'tgl_transaksi' => $this->input->post('tgl_order', true),
+                'transaksi_kode' => $this->input->post('kode_order', true),
+                'nominal' => $this->input->post('nominal', true),
+                'jarak' => $this->input->post('jarak', true),
+                'pembayaran' => $this->input->post('pembayaran', true)
+            );
+            $this->db->insert('tb_order', $data);
+            $this->db->insert('transaksi_jarak', $data2);
+            $this->session->set_flashdata('message', 'Tambah data');
+            redirect('spv/terima_order');
+        }
     }
 
-    public function verif()
+    public function add_order_volume()
     {
-        $id_route = $this->input->post('id_route', true);
-        $confirm = $this->input->post('confirm', true);
-        $this->db->set('confirm', $confirm);
-        $this->db->where('id_route', $id_route);
-        $this->db->update('tb_perjalanan');
-        $this->session->set_flashdata('message', 'Konfirmasi data');
-        redirect('spv/confirm/' . $id_route);
+        $data = array(
+            'tgl_order' => $this->input->post('tgl_order', true),
+            'kode_order' => $this->input->post('kode_order', true),
+            'nama_pengirim' => $this->input->post('nama_pengirim', true),
+            'telp_pengirim' => $this->input->post('telp_pengirim', true),
+            'alamat_pengirim' => $this->input->post('alamat_pengirim', true),
+            'nama_penerima' => $this->input->post('nama_penerima', true),
+            'telp_penerima' => $this->input->post('telp_penerima', true),
+            'alamat_penerima' => $this->input->post('alamat_penerima', true),
+            'status_pickup' => 1,
+            'sukses' => 1
+        );
+        $data2 = array(
+            'tgl_transaksi' => $this->input->post('tgl_order', true),
+            'transaksi_kode' => $this->input->post('kode_order', true),
+            'nominal' => $this->input->post('nominal', true),
+            'volume' => $this->input->post('volume', true),
+            'pembayaran' => $this->input->post('pembayaran', true)
+        );
+        $this->db->insert('tb_order', $data);
+        $this->db->insert('transaksi_volume', $data2);
+        $this->session->set_flashdata('message', 'Tambah data');
+        redirect('spv/terima_order');
+    }
+
+    public function pengiriman()
+    {
+        $data['title'] = 'Pengiriman Order';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['terima_order'] = $this->spv->getStatusKurir();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_spv', $data);
+        $this->load->view('spv/transaksi/pengiriman', $data);
+        $this->load->view('templates/footer');
     }
 }

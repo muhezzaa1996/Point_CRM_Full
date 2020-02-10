@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-header">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-user">
-                            Tambah Tujuan
+                            Tambah Tarif
                         </button>
                     </div>
                     <div class="card-body">
@@ -41,22 +41,24 @@
                             <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                 <thead>
                                     <th>#</th>
-                                    <th>Nama Tujuan</th>
-                                    <th>Kota</th>
-                                    <th>Jarak</th>
+                                    <th>Kota Asal</th>
+                                    <th>Kota Tujuan</th>
+                                    <th>Tarif Volume</th>
+                                    <th>Tarif Jarak</th>
                                     <th>Edit</th>
                                     <th>Hapus</th>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    <?php foreach ($tujuan as $lu) : ?>
+                                    <?php foreach ($tarif as $lu) : ?>
                                         <tr>
                                             <td><?php echo $i++; ?></td>
-                                            <td><?php echo $lu['nama_tujuan']; ?></td>
-                                            <td><?php echo $lu['kota']; ?></td>
-                                            <td><?php echo $lu['jarak']; ?> Km</td>
-                                            <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_tujuan']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
-                                            <td><a href="<?php echo base_url('spv/del_kendaraan/') . $lu['id_tujuan']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
+                                            <td><?php echo $lu['kota_asal']; ?></td>
+                                            <td><?php echo $lu['kota_tujuan']; ?></td>
+                                            <td>Rp. <?php echo rupiah($lu['tarif_volume']); ?></td>
+                                            <td>Rp. <?php echo rupiah($lu['tarif_jarak']); ?></td>
+                                            <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_tarif']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
+                                            <td><a href="<?php echo base_url('spv/del_tarif/') . $lu['id_tarif']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -77,22 +79,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Tujuan</h4>
+                <h4 class="modal-title">Tambah Tarif</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('spv/mst_tujuan'); ?>" method="post">
+                    <form action="<?php echo base_url('spv/mst_tarif'); ?>" method="post">
                         <div class="form-group">
-                            <label>Nama Tujuan</label>
-                            <input type="text" class="form-control form-control-sm" name="nama_tujuan" required>
+                            <label>Kota Asal</label>
+                            <input type="text" class="form-control form-control-sm" name="kota_asal" required>
                         </div>
                         <div class="form-group">
-                            <label>Kota</label>
-                            <input type="text" class="form-control form-control-sm" name="kota" required>
+                            <label>Kota Tujuan</label>
+                            <input type="text" class="form-control form-control-sm" name="kota_tujuan" required>
                         </div>
                         <div class="form-group">
-                            <label>Jarak (dalam Km)</label>
-                            <input type="number" class="form-control form-control-sm" name="jarak" required>
+                            <label>Tarif Volume (../Kubik)</label>
+                            <input type="number" class="form-control form-control-sm" name="tarif_volume" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tarif Jarak (../KM)</label>
+                            <input type="number" class="form-control form-control-sm" name="tarif_jarak" required>
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
@@ -111,23 +117,27 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Kendaraan</h4>
+                <h4 class="modal-title">Edit Tarif</h4>
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('spv/edit_tujuan'); ?>" method="post">
+                    <form action="<?php echo base_url('spv/edit_tarif'); ?>" method="post">
                         <div class="form-group">
-                            <label>Nama Kendaraan</label>
-                            <input type="hidden" name="id_tujuan" id="id_tujuan">
-                            <input type="text" class="form-control form-control-sm" name="nama_tujuan" id="nama_tujuan" required>
+                            <label>Kota Asal</label>
+                            <input type="hidden" name="id_tarif" id="id_tarif">
+                            <input type="text" class="form-control form-control-sm" name="kota_asal" id="kota_asal" required>
                         </div>
                         <div class="form-group">
                             <label>Kota Tujuan</label>
-                            <input type="text" class="form-control form-control-sm" name="kota" id="kota" required>
+                            <input type="text" class="form-control form-control-sm" name="kota_tujuan" id="kota_tujuan" required>
                         </div>
                         <div class="form-group">
-                            <label>Jarak (dalam Km)</label>
-                            <input type="number" class="form-control form-control-sm" name="jarak" id="jarak" required>
+                            <label>Tarif Volume (../Kubik)</label>
+                            <input type="number" class="form-control form-control-sm" name="tarif_volume" id="tarif_volume" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tarif Jarak (../KM)</label>
+                            <input type="number" class="form-control form-control-sm" name="tarif_jarak" id="tarif_jarak" required>
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Simpan Data</button>
@@ -144,19 +154,20 @@
 
 <script>
     $('.tombol-edit').on('click', function() {
-        const id_tujuan = $(this).data('id');
+        const id_tarif = $(this).data('id');
         $.ajax({
-            url: '<?php echo base_url('spv/get_tujuan'); ?>',
+            url: '<?php echo base_url('spv/get_tarif'); ?>',
             data: {
-                id_tujuan: id_tujuan
+                id_tarif: id_tarif
             },
             method: 'post',
             dataType: 'json',
             success: function(data) {
-                $('#nama_tujuan').val(data.nama_tujuan);
-                $('#kota').val(data.kota);
-                $('#jarak').val(data.jarak);
-                $('#id_tujuan').val(data.id_tujuan);
+                $('#kota_asal').val(data.kota_asal);
+                $('#kota_tujuan').val(data.kota_tujuan);
+                $('#tarif_volume').val(data.tarif_volume);
+                $('#tarif_jarak').val(data.tarif_jarak);
+                $('#id_tarif').val(data.id_tarif);
             }
         });
     });

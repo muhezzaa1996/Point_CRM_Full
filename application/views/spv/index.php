@@ -18,60 +18,56 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="card card-primary card-outline">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-3 col-xs-6">
-                            <div class="small-box bg-teal">
-                                <div class="inner">
-                                    <h3><?php echo $user_perbulan; ?></h3>
-                                    <p>Driver Baru</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">-</a>
-                            </div>
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-teal">
+                        <div class="inner">
+                            <h3><?php echo $user_perbulan; ?></h3>
+                            <p>Karyawan Register</p>
                         </div>
+                        <div class="icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">-</a>
+                    </div>
+                </div>
 
-                        <div class="col-lg-3 col-xs-6">
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3><?php echo $count_user; ?></h3>
-                                    <p>Total Driver</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">-</a>
-                            </div>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3><?php echo $count_user; ?></h3>
+                            <p>Total Karyawan</p>
                         </div>
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">-</a>
+                    </div>
+                </div>
 
-                        <div class="col-lg-3 col-xs-6">
-                            <div class="small-box bg-purple">
-                                <div class="inner">
-                                    <h3><?php echo $user_aktif; ?></h3>
-                                    <p>Driver Aktif</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">-</a>
-                            </div>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-purple">
+                        <div class="inner">
+                            <h3><?php echo $user_aktif; ?></h3>
+                            <p>Karyawan Aktif</p>
                         </div>
+                        <div class="icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">-</a>
+                    </div>
+                </div>
 
-                        <div class="col-lg-3 col-xs-6">
-                            <div class="small-box bg-red">
-                                <div class="inner">
-                                    <h3><?php echo $user_tak_aktif; ?></h3>
-                                    <p>Driver Tidak Aktif</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-user-times"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">-</a>
-                            </div>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3><?php echo $user_tak_aktif; ?></h3>
+                            <p>Karyawan Tidak Aktif</p>
                         </div>
+                        <div class="icon">
+                            <i class="fas fa-user-times"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">-</a>
                     </div>
                 </div>
             </div>
@@ -126,7 +122,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card">
                             <div class="card-header p-2">
-                                <h4>List Driver</h4>
+                                <h4>List Karyawan</h4>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
@@ -136,8 +132,8 @@
                                                 <thead>
                                                     <th>#</th>
                                                     <th>Nama</th>
-                                                    <th>Email</th>
-                                                    <th>No HP</th>
+                                                    <th>User</th>
+                                                    <th>Level</th>
                                                     <th>Status</th>
                                                     <th>Tgl Register</th>
                                                 </thead>
@@ -147,8 +143,8 @@
                                                         <tr>
                                                             <td><?php echo $i++; ?></td>
                                                             <td><?php echo $lu['nama']; ?></td>
-                                                            <td><?php echo $lu['email']; ?></td>
-                                                            <td><?php echo $lu['hp']; ?></td>
+                                                            <td><?php echo $lu['username']; ?></td>
+                                                            <td><?php echo $lu['level']; ?></td>
                                                             <?php if ($lu['is_active'] == 1) : ?>
                                                                 <td>Aktif</td>
                                                             <?php else : ?>
@@ -187,7 +183,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?php echo form_open_multipart('spv/index'); ?>
+                <?php echo form_open_multipart('admin/index'); ?>
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
@@ -252,7 +248,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?php echo base_url('spv/ubah_password'); ?>" method="post">
+                <form action="<?php echo base_url('admin/ubah_password'); ?>" method="post">
                     <div class="form-group">
                         <label for="current_password">Password Lama</label>
                         <input type="password" class="form-control" id="current_password" name="current_password">

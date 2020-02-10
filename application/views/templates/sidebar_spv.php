@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         <img src="<?php echo base_url('assets/'); ?>dist/img/adonia.png" alt="ADONIA Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-bold ml-2">E-Klaim</span>
+        <span class="brand-text font-weight-bold ml-2">LOGISTIK</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -13,7 +13,7 @@
                 <img src="<?php echo base_url('assets/dist/img/profile/' . $user['image']); ?>" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="<?php echo base_url('spv/index'); ?>" class="d-block"><?php echo $user['nama']; ?></a>
+                <a href="#" class="d-block"><?php echo $user['nama']; ?></a>
             </div>
         </div>
         <!-- Sidebar Menu -->
@@ -27,7 +27,13 @@
                         <p class="text">Beranda</p>
                     </a>
                 </li>
-                <li class="nav-header">SUPERVISOR</li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('spv/man_user'); ?>" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p class="text">Management User</p>
+                    </a>
+                </li>
+                <!-- <li class="nav-header">spv</li> -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-clone"></i>
@@ -38,33 +44,81 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="<?php echo base_url('spv/mst_karyawan'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('spv/mst_cabang'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Cabang</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('spv/mst_bank'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Bank</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('spv/mst_toko'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Toko</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?php echo base_url('spv/mst_kendaraan'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Master Kendaraan</p>
+                                <p>Data Kendaraan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url('spv/mst_tujuan'); ?>" class="nav-link">
+                            <a href="<?php echo base_url('spv/mst_tarif'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Master Tujuan</p>
+                                <p>Data Tarif</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url('spv/mst_driver'); ?>" class="nav-link">
+                            <a href="<?php echo base_url('spv/mst_biaya'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Master Driver</p>
+                                <p>Data BIaya Ops</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">DATA DRIVER</li>
-                <li class="nav-item">
-                    <a href="<?php echo base_url('spv/rute'); ?>" class="nav-link">
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-map"></i>
-                        <p class="text">Data Perjalanan</p>
+                        <p>
+                            Data Transaksi
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('spv/terima_order'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Penerimaan Order</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('spv/nota_order'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Nota Order</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('spv/pengiriman'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pengiriman Order</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-header">END</li>
+
                 <li class="nav-item">
                     <a href="<?php echo base_url('auth/logout'); ?>" id="tombol-logout" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
