@@ -56,7 +56,7 @@
                                             <td><?php echo $lu['kota']; ?></td>
                                             <td><?php echo $lu['jarak']; ?> Km</td>
                                             <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_tujuan']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
-                                            <td><a href="<?php echo base_url('admin/del_kendaraan/') . $lu['id_tujuan']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
+                                            <td><a href="<?php echo base_url('spv/del_kendaraan/') . $lu['id_tujuan']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -81,7 +81,7 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/mst_tujuan'); ?>" method="post">
+                    <form action="<?php echo base_url('spv/mst_tujuan'); ?>" method="post">
                         <div class="form-group">
                             <label>Nama Tujuan</label>
                             <input type="text" class="form-control form-control-sm" name="nama_tujuan" required>
@@ -115,7 +115,7 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/edit_tujuan'); ?>" method="post">
+                    <form action="<?php echo base_url('spv/edit_tujuan'); ?>" method="post">
                         <div class="form-group">
                             <label>Nama Kendaraan</label>
                             <input type="hidden" name="id_tujuan" id="id_tujuan">
@@ -146,7 +146,7 @@
     $('.tombol-edit').on('click', function() {
         const id_tujuan = $(this).data('id');
         $.ajax({
-            url: '<?php echo base_url('admin/get_tujuan'); ?>',
+            url: '<?php echo base_url('spv/get_tujuan'); ?>',
             data: {
                 id_tujuan: id_tujuan
             },

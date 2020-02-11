@@ -62,7 +62,7 @@
                                             <td><?php echo $lu['npwp']; ?></td>
                                             <td><?php echo $lu['diskon']; ?></td>
                                             <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_toko']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
-                                            <td><a href="<?php echo base_url('admin/del_toko/') . $lu['id_toko']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
+                                            <td><a href="<?php echo base_url('spv/del_toko/') . $lu['id_toko']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -87,7 +87,7 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/mst_toko'); ?>" method="post">
+                    <form action="<?php echo base_url('spv/mst_toko'); ?>" method="post">
                         <div class="form-group">
                             <label>Nama Pemilik</label>
                             <input type="text" class="form-control form-control-sm" name="pemilik" required>
@@ -133,7 +133,7 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <form action="<?php echo base_url('admin/edit_toko'); ?>" method="post">
+                    <form action="<?php echo base_url('spv/edit_toko'); ?>" method="post">
                         <div class="form-group">
                             <label>Nama Pemilik</label>
                             <input type="hidden" name="id_toko" id="id_toko">
@@ -176,7 +176,7 @@
     $('.tombol-edit').on('click', function() {
         const id_toko = $(this).data('id');
         $.ajax({
-            url: '<?php echo base_url('admin/get_toko'); ?>',
+            url: '<?php echo base_url('spv/get_toko'); ?>',
             data: {
                 id_toko: id_toko
             },
