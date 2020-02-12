@@ -90,7 +90,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-map"></i>
+                        <i class="nav-icon fab fa-whmcs"></i>
                         <p>
                             Data Transaksi
                             <i class="right fas fa-angle-left"></i>
@@ -114,6 +114,37 @@
                             <a href="<?php echo base_url('admin/pengiriman'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pengiriman Order</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-coins"></i>
+                        <p>
+                            Data Keuangan
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('admin/terima_order'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Total Penerimaan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('admin/nota_order'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Total Pengeluaran</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('admin/pengiriman'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rugi Laba</p>
                             </a>
                         </li>
                     </ul>
