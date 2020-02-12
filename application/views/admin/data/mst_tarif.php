@@ -44,7 +44,7 @@
                                     <th>Kota Asal</th>
                                     <th>Kota Tujuan</th>
                                     <th>Tarif Volume</th>
-                                    <th>Tarif Jarak</th>
+                                    <th>Tarif Berat</th>
                                     <th>Edit</th>
                                     <th>Hapus</th>
                                 </thead>
@@ -55,8 +55,8 @@
                                             <td><?php echo $i++; ?></td>
                                             <td><?php echo $lu['kota_asal']; ?></td>
                                             <td><?php echo $lu['kota_tujuan']; ?></td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_volume']); ?></td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_jarak']); ?></td>
+                                            <td>Rp. <?php echo rupiah($lu['tarif_volume']); ?>/M<sup>3</sup></td>
+                                            <td>Rp. <?php echo rupiah($lu['tarif_jarak']); ?>/Kg</td>
                                             <td><button class="tombol-edit btn btn-info btn-block btn-sm" data-id="<?php echo $lu['id_tarif']; ?>" data-toggle="modal" data-target="#edit-user">Edit</button></td>
                                             <td><a href="<?php echo base_url('admin/del_tarif/') . $lu['id_tarif']; ?>" class="tombol-hapus btn btn-danger btn-block btn-sm">Hapus</a> </td>
                                         </tr>
@@ -93,11 +93,11 @@
                             <input type="text" class="form-control form-control-sm" name="kota_tujuan" required>
                         </div>
                         <div class="form-group">
-                            <label>Tarif Volume (../Kubik)</label>
+                            <label>Tarif Volume (../M<sup>3</sup>)</label>
                             <input type="number" class="form-control form-control-sm" name="tarif_volume" required>
                         </div>
                         <div class="form-group">
-                            <label>Tarif Jarak (../KM)</label>
+                            <label>Tarif Berat (../Kg)</label>
                             <input type="number" class="form-control form-control-sm" name="tarif_jarak" required>
                         </div>
                         <div class="box-footer">
@@ -132,11 +132,11 @@
                             <input type="text" class="form-control form-control-sm" name="kota_tujuan" id="kota_tujuan" required>
                         </div>
                         <div class="form-group">
-                            <label>Tarif Volume (../Kubik)</label>
+                            <label>Tarif Volume (../M<sup>3</sup>)</label>
                             <input type="number" class="form-control form-control-sm" name="tarif_volume" id="tarif_volume" required>
                         </div>
                         <div class="form-group">
-                            <label>Tarif Jarak (../KM)</label>
+                            <label>Tarif Berat (../Kg)</label>
                             <input type="number" class="form-control form-control-sm" name="tarif_jarak" id="tarif_jarak" required>
                         </div>
                         <div class="box-footer">

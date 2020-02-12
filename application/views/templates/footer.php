@@ -52,6 +52,7 @@
     $(function() {
         $("#table-id").DataTable();
         $('#id-table').DataTable();
+        $('#table-data').DataTable();
     });
 </script>
 <script>

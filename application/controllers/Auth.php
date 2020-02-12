@@ -46,7 +46,7 @@ class Auth extends CI_Controller
                     redirect('auth/index');
                 }
             } else {
-                $this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert">NIS dan Password tidak sama</div>');
+                $this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert">Username dan Password tidak sama</div>');
                 redirect('auth/index');
             }
         }

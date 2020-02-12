@@ -35,7 +35,7 @@
                  <div class="card">
                      <div class="card-header">
                          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#trans_jarak">
-                             Input Order Jarak
+                             Input Order Berat
                          </button>
                          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#trans_volume">
                              Input Order Volume
@@ -48,7 +48,7 @@
                          <div class="row">
                              <div class="col-md-12">
                                  <div class="table-responsive">
-                                     <h4>Penerimaan Order Jarak</h4>
+                                     <h4>Penerimaan Order Berat</h4>
                                      <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
@@ -138,7 +138,7 @@
      <div class="modal-dialog">
          <div class="modal-content">
              <div class="modal-header">
-                 <h4 class="modal-title">Input Order Jarak</h4>
+                 <h4 class="modal-title">Input Order Berat</h4>
              </div>
              <div class="modal-body">
                  <div class="box-body">
@@ -210,8 +210,8 @@
                                  <input type="text" class="form-control form-control-sm" name="nominal" id="jarak_show" readonly>
                              </div>
                              <div class="col-md-2">
-                                 <label for="exampleFormControlSelect1">KM</label>
-                                 <input type="number" class="numerical form-control form-control-sm" name="jarak" id="total_km">
+                                 <label for="exampleFormControlSelect1">Berat</label>
+                                 <input type="number" class="numerical form-control form-control-sm" name="jarak" id="total_km" placeholder="(Kg)">
                              </div>
                              <div class="col-md-3">
                                  <label for="exampleFormControlSelect1">Total Harga</label>
@@ -307,7 +307,7 @@
                              </div>
                              <div class="col-md-2">
                                  <label for="exampleFormControlSelect1">Volume</label>
-                                 <input type="number" class="numerical form-control form-control-sm" name="volume" id="jumlah">
+                                 <input type="number" class="numerical form-control form-control-sm" name="volume" id="jumlah" placeholder="(M3)">
                              </div>
                              <div class="col-md-3">
                                  <label for="exampleFormControlSelect1">Total Harga</label>
@@ -336,7 +336,7 @@
              <div class="modal-body">
                  <div class="box-body">
                      <div class="table-responsive">
-                         <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
+                         <table class=" table table-bordered table-hover" id="table-data" style="font-size:14px;">
                              <thead>
                                  <th>#</th>
                                  <th>Kode Order</th>

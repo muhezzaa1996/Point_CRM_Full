@@ -526,6 +526,7 @@ class Gerai extends CI_Controller
             $this->load->view('gerai/transaksi/terima_order', $data);
             $this->load->view('templates/footer');
         } else {
+            $sess_nama =  $this->session->userdata('nama');
             $data = array(
                 'tgl_order' => $this->input->post('tgl_order', true),
                 'kode_order' => $this->input->post('kode_order', true),
@@ -535,6 +536,7 @@ class Gerai extends CI_Controller
                 'nama_penerima' => $this->input->post('nama_penerima', true),
                 'telp_penerima' => $this->input->post('telp_penerima', true),
                 'alamat_penerima' => $this->input->post('alamat_penerima', true),
+                'sess_nama' => $sess_nama,
                 'status_pickup' => 1,
                 'sukses' => 1
             );

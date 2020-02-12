@@ -18,12 +18,12 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-teal">
                         <div class="inner">
                             <h3><?php echo $user_perbulan; ?></h3>
-                            <p>Karyawan Register</p>
+                            <p>Pelanggan Bulan ini</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-plus"></i>
@@ -36,7 +36,7 @@
                     <div class="small-box bg-green">
                         <div class="inner">
                             <h3><?php echo $count_user; ?></h3>
-                            <p>Total Karyawan</p>
+                            <p>Total Pelanggan</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-users"></i>
@@ -49,7 +49,7 @@
                     <div class="small-box bg-purple">
                         <div class="inner">
                             <h3><?php echo $user_aktif; ?></h3>
-                            <p>Karyawan Aktif</p>
+                            <p>Pelanggan Aktif</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-check"></i>
@@ -62,7 +62,7 @@
                     <div class="small-box bg-red">
                         <div class="inner">
                             <h3><?php echo $user_tak_aktif; ?></h3>
-                            <p>Karyawan Tidak Aktif</p>
+                            <p>Pelanggan Tidak Aktif</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-times"></i>
@@ -70,7 +70,8 @@
                         <a href="#" class="small-box-footer">-</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
@@ -122,7 +123,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card">
                             <div class="card-header p-2">
-                                <h4>List Karyawan</h4>
+                                <h4>Toko Kami</h4>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
@@ -131,35 +132,28 @@
                                             <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                                 <thead>
                                                     <th>#</th>
-                                                    <th>Nama</th>
-                                                    <th>User</th>
-                                                    <th>Level</th>
-                                                    <th>Status</th>
-                                                    <th>Register</th>
+                                                    <th>Nama Pemilik</th>
+                                                    <th>Nama Toko</th>
+                                                    <th>Alamat Toko</th>
+                                                    <th>No Telp</th>
+                                                    <th>NPWP</th>
                                                 </thead>
                                                 <tbody>
                                                     <?php $i = 1; ?>
-                                                    <?php foreach ($list_user as $lu) : ?>
-                                                        <?php if ($lu['level'] != 'Admin') : ?>
-                                                            <tr>
-                                                                <td><?php echo $i++; ?></td>
-                                                                <td><?php echo $lu['nama']; ?></td>
-                                                                <td><?php echo $lu['username']; ?></td>
-                                                                <td><?php echo $lu['level']; ?></td>
-                                                                <?php if ($lu['is_active'] == 1) : ?>
-                                                                    <td>Aktif</td>
-                                                                <?php else : ?>
-                                                                    <td>Tidak Aktif</td>
-                                                                <?php endif; ?>
-                                                                <td><?php echo format_indo($lu['date_created']); ?></td>
-                                                            </tr>
-                                                        <?php endif; ?>
+                                                    <?php foreach ($toko as $lu) : ?>
+                                                        <tr>
+                                                            <td><?php echo $i++; ?></td>
+                                                            <td><?php echo $lu['pemilik']; ?></td>
+                                                            <td><?php echo $lu['nama_toko']; ?></td>
+                                                            <td><?php echo $lu['alamat_toko']; ?></td>
+                                                            <td><?php echo $lu['telp_toko']; ?></td>
+                                                            <td><?php echo $lu['npwp']; ?></td>
+                                                        </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-
                                 </div>
                                 <!-- /.tab-content -->
                             </div><!-- /.card-body -->
@@ -185,7 +179,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?php echo form_open_multipart('admin/index'); ?>
+                <?php echo form_open_multipart('user/index'); ?>
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
@@ -250,7 +244,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?php echo base_url('admin/ubah_password'); ?>" method="post">
+                <form action="<?php echo base_url('user/ubah_password'); ?>" method="post">
                     <div class="form-group">
                         <label for="current_password">Password Lama</label>
                         <input type="password" class="form-control" id="current_password" name="current_password">

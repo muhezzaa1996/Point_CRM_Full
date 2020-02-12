@@ -38,13 +38,13 @@
                          <div class="row">
                              <div class="col-md-12">
                                  <div class="table-responsive">
-                                     <h4>Nota Order Jarak</h4>
+                                     <h4>Nota Order Berat</h4>
                                      <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
                                              <th>Kode Order</th>
                                              <th>Tgl Order</th>
-                                             <th>Jarak Order</th>
+                                             <th>Berat Order</th>
                                              <th>Nominal Harga</th>
                                              <th>Total Bayar</th>
                                          </thead>
@@ -55,7 +55,7 @@
                                                      <td><?php echo $i++; ?></td>
                                                      <td><?php echo $lu['transaksi_kode']; ?></td>
                                                      <td><?php echo $lu['tgl_transaksi']; ?></td>
-                                                     <td><?php echo $lu['jarak']; ?> Km</td>
+                                                     <td><?php echo $lu['jarak']; ?> Kg</td>
                                                      <td>Rp. <?php echo rupiah($lu['nominal']); ?></td>
                                                      <td>Rp. <?php echo rupiah($lu['pembayaran']); ?></td>
                                                  </tr>
@@ -72,7 +72,7 @@
                                              <th>#</th>
                                              <th>Kode Order</th>
                                              <th>Tgl Order</th>
-                                             <th>Jarak Order</th>
+                                             <th>Volume Order</th>
                                              <th>Nominal Harga</th>
                                              <th>Total Bayar</th>
                                          </thead>
@@ -83,7 +83,7 @@
                                                      <td><?php echo $i++; ?></td>
                                                      <td><?php echo $lu['transaksi_kode']; ?></td>
                                                      <td><?php echo $lu['tgl_transaksi']; ?></td>
-                                                     <td><?php echo $lu['volume']; ?> Kubik</td>
+                                                     <td><?php echo $lu['volume']; ?> M<sup>3</sup></td>
                                                      <td>Rp. <?php echo rupiah($lu['nominal']); ?></td>
                                                      <td>Rp. <?php echo rupiah($lu['pembayaran']); ?></td>
                                                  </tr>

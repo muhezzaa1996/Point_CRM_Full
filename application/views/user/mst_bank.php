@@ -39,20 +39,20 @@
                             <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                 <thead>
                                     <th>#</th>
-                                    <th>Kota Asal</th>
-                                    <th>Kota Tujuan</th>
-                                    <th>Tarif Volume</th>
-                                    <th>Tarif Berat</th>
+                                    <th>Nama Bank</th>
+                                    <th>No Rekening</th>
+                                    <th>Cabang</th>
+                                    <th>Kota</th>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    <?php foreach ($tarif as $lu) : ?>
+                                    <?php foreach ($bank as $lu) : ?>
                                         <tr>
                                             <td><?php echo $i++; ?></td>
-                                            <td><?php echo $lu['kota_asal']; ?></td>
-                                            <td><?php echo $lu['kota_tujuan']; ?></td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_volume']); ?>/Kubik</td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_jarak']); ?>/KM</td>
+                                            <td><?php echo $lu['nama_bank']; ?></td>
+                                            <td><?php echo $lu['no_rek']; ?></td>
+                                            <td><?php echo $lu['cabang']; ?></td>
+                                            <td><?php echo $lu['kota']; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

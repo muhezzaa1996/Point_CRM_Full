@@ -48,7 +48,7 @@
                                              <th>Alamat</th>
                                              <th>Penerima</th>
                                              <th>Alamat</th>
-                                             <th>Status</th>
+                                             <th>Status Kirim</th>
                                          </thead>
                                          <tbody>
                                              <?php $i = 1; ?>

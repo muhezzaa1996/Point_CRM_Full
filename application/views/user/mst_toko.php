@@ -39,20 +39,22 @@
                             <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                 <thead>
                                     <th>#</th>
-                                    <th>Kota Asal</th>
-                                    <th>Kota Tujuan</th>
-                                    <th>Tarif Volume</th>
-                                    <th>Tarif Berat</th>
+                                    <th>Nama Pemilik</th>
+                                    <th>Nama Toko</th>
+                                    <th>Alamat Toko</th>
+                                    <th>No Telp</th>
+                                    <th>NPWP</th>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    <?php foreach ($tarif as $lu) : ?>
+                                    <?php foreach ($toko as $lu) : ?>
                                         <tr>
                                             <td><?php echo $i++; ?></td>
-                                            <td><?php echo $lu['kota_asal']; ?></td>
-                                            <td><?php echo $lu['kota_tujuan']; ?></td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_volume']); ?>/Kubik</td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_jarak']); ?>/KM</td>
+                                            <td><?php echo $lu['pemilik']; ?></td>
+                                            <td><?php echo $lu['nama_toko']; ?></td>
+                                            <td><?php echo $lu['alamat_toko']; ?></td>
+                                            <td><?php echo $lu['telp_toko']; ?></td>
+                                            <td><?php echo $lu['npwp']; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

@@ -51,8 +51,8 @@
                                             <td><?php echo $i++; ?></td>
                                             <td><?php echo $lu['kota_asal']; ?></td>
                                             <td><?php echo $lu['kota_tujuan']; ?></td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_volume']); ?>/Kubik</td>
-                                            <td>Rp. <?php echo rupiah($lu['tarif_jarak']); ?>/KM</td>
+                                            <td>Rp. <?php echo rupiah($lu['tarif_volume']); ?>/M<sup>3</sup></td>
+                                            <td>Rp. <?php echo rupiah($lu['tarif_jarak']); ?>/Kg</td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

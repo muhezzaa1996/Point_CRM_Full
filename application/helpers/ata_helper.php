@@ -51,3 +51,14 @@ function is_gerai()
         redirect('auth/blocked');
     }
 }
+
+function is_user()
+{
+    $ci = get_instance();
+    $level = $ci->session->userdata('level');
+    $Akses = $ci->uri->segment(1);
+    $ci->db->get_where('mst_user', ['level' => $Akses])->row_array();
+    if ($level !== 'User') {
+        redirect('auth/blocked');
+    }
+}
