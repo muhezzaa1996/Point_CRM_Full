@@ -719,4 +719,16 @@ class Admin extends CI_Controller
         $this->load->view('admin/transaksi/pengiriman', $data);
         $this->load->view('templates/footer');
     }
+
+    public function penerimaan()
+    {
+        $data['title'] = 'Total Penerimaan';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['terima_uang'] = $this->admin->getUangMasukr();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_admin', $data);
+        $this->load->view('admin/keuangan/penerimaan', $data);
+        $this->load->view('templates/footer');
+    }
 }

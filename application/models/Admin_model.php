@@ -174,4 +174,19 @@ class Admin_model extends CI_model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function getUangMasuk()
+    {
+        $query = $this->db->query(
+            "SELECT CONCAT(YEAR(tgl_transaksi),'/',MONTH(tgl_transaksi)) AS tahun_bulan, COUNT(*) AS jsekarang
+                FROM transaksi_jarak
+                WHERE CONCAT(YEAR(tgl_transaksi),'/',MONTH(tgl_transaksi))=CONCAT(YEAR(NOW()),'/',(YEAR(NOW()))
+                GROUP BY YEAR(tgl_transaksi),MONTH(tgl_transaksi);"
+        );
+        if ($query->num_rows() > 0) {
+            return $query->row()->januari;
+        } else {
+            return 0;
+        }
+    }
 }
