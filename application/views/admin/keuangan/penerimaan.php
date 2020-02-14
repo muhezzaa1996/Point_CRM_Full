@@ -38,15 +38,15 @@
                      </div>
                      <div class="card-body">
                          <div class="row">
-                             <div class="col-md-12">
+                             <div class="col-md-6">
                                  <div class="table-responsive">
                                      <h5><?php echo $title; ?> Dari Transaksi Berat (Kg)</h5>
+                                     <div class="mb-2 font-weight-bolder">Total Penerimaan Bulan ini : Rp. <?php echo rupiah($uang_jarak); ?></div>
                                      <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
                                              <th>Kode Order</th>
                                              <th>Tgl Order</th>
-                                             <th>Berat Order</th>
                                              <th>Nominal Harga</th>
                                              <th>Total Bayar</th>
                                          </thead>
@@ -57,7 +57,6 @@
                                                      <td><?php echo $i++; ?></td>
                                                      <td><?php echo $lu['transaksi_kode']; ?></td>
                                                      <td><?php echo $lu['tgl_transaksi']; ?></td>
-                                                     <td><?php echo $lu['jarak']; ?> Kg</td>
                                                      <td>Rp. <?php echo rupiah($lu['nominal']); ?></td>
                                                      <td>Rp. <?php echo rupiah($lu['pembayaran']); ?></td>
                                                  </tr>
@@ -66,15 +65,15 @@
                                      </table>
                                  </div>
                              </div>
-                             <div class="col-md-12 mt-3">
+                             <div class="col-md-6">
                                  <div class="table-responsive">
                                      <h5><?php echo $title; ?> Dari Transaksi Volume (M<sup>3</sup>)</h5>
-                                     <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
+                                     <div class="mb-2 font-weight-bolder">Total Penerimaan Bulan ini : Rp. <?php echo rupiah($uang_volume); ?></div>
+                                     <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
                                              <th>Kode Order</th>
                                              <th>Tgl Order</th>
-                                             <th>Volume Order</th>
                                              <th>Nominal Harga</th>
                                              <th>Total Bayar</th>
                                          </thead>
@@ -85,7 +84,6 @@
                                                      <td><?php echo $i++; ?></td>
                                                      <td><?php echo $lu['transaksi_kode']; ?></td>
                                                      <td><?php echo $lu['tgl_transaksi']; ?></td>
-                                                     <td><?php echo $lu['volume']; ?> M<sup>3</sup></td>
                                                      <td>Rp. <?php echo rupiah($lu['nominal']); ?></td>
                                                      <td>Rp. <?php echo rupiah($lu['pembayaran']); ?></td>
                                                  </tr>

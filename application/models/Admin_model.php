@@ -193,4 +193,34 @@ class Admin_model extends CI_model
         $query = $this->db->get();
         return $query;
     }
+
+    public function hitungUangJarak()
+    {
+        $query = $this->db->query(
+            "SELECT SUM(pembayaran) as total_bayar
+                               FROM transaksi_jarak
+                               WHERE CONCAT(YEAR(tgl_transaksi),'/',MONTH(tgl_transaksi))=CONCAT(YEAR(NOW()),'/',MONTH(NOW()))
+                               "
+        );
+        if ($query->num_rows() > 0) {
+            return $query->row()->total_bayar;
+        } else {
+            return 0;
+        }
+    }
+
+    public function hitungUangVolume()
+    {
+        $query = $this->db->query(
+            "SELECT SUM(pembayaran) as total_bayar
+                               FROM transaksi_volume
+                               WHERE CONCAT(YEAR(tgl_transaksi),'/',MONTH(tgl_transaksi))=CONCAT(YEAR(NOW()),'/',MONTH(NOW()))
+                               "
+        );
+        if ($query->num_rows() > 0) {
+            return $query->row()->total_bayar;
+        } else {
+            return 0;
+        }
+    }
 }

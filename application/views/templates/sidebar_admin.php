@@ -136,13 +136,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url('admin/nota_order'); ?>" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Total Pengeluaran</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url('admin/pengiriman'); ?>" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Rugi Laba</p>
                             </a>
