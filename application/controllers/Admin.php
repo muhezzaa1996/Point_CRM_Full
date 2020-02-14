@@ -722,9 +722,10 @@ class Admin extends CI_Controller
 
     public function penerimaan()
     {
-        $data['title'] = 'Total Penerimaan';
+        $data['title'] = 'Penerimaan Bulan Ini';
         $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['terima_uang'] = $this->admin->getUangMasukr();
+        $data['terima_uang'] = $this->admin->getUangMasuk()->result_array();
+        $data['terima_volume'] = $this->admin->getVolumeMasuk()->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_admin', $data);

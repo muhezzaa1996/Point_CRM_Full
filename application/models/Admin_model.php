@@ -177,16 +177,20 @@ class Admin_model extends CI_model
 
     public function getUangMasuk()
     {
-        $query = $this->db->query(
-            "SELECT CONCAT(YEAR(tgl_transaksi),'/',MONTH(tgl_transaksi)) AS tahun_bulan, COUNT(*) AS jsekarang
-                FROM transaksi_jarak
-                WHERE CONCAT(YEAR(tgl_transaksi),'/',MONTH(tgl_transaksi))=CONCAT(YEAR(NOW()),'/',(YEAR(NOW()))
-                GROUP BY YEAR(tgl_transaksi),MONTH(tgl_transaksi);"
-        );
-        if ($query->num_rows() > 0) {
-            return $query->row()->januari;
-        } else {
-            return 0;
-        }
+        $bulan = date('Y-m');
+        $this->db->select('*');
+        $this->db->from('transaksi_jarak');
+        $this->db->where("DATE_FORMAT(tgl_transaksi,'%Y-%m')", $bulan);
+        $query = $this->db->get();
+        return $query;
+    }
+    public function getVolumeMasuk()
+    {
+        $bulan = date('Y-m');
+        $this->db->select('*');
+        $this->db->from('transaksi_volume');
+        $this->db->where("DATE_FORMAT(tgl_transaksi,'%Y-%m')", $bulan);
+        $query = $this->db->get();
+        return $query;
     }
 }
