@@ -174,4 +174,53 @@ class Spv_model extends CI_model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function getUangMasuk()
+    {
+        $bulan = date('Y-m');
+        $this->db->select('*');
+        $this->db->from('transaksi_jarak');
+        $this->db->where("DATE_FORMAT(tgl_transaksi,'%Y-%m')", $bulan);
+        $query = $this->db->get();
+        return $query;
+    }
+    public function getVolumeMasuk()
+    {
+        $bulan = date('Y-m');
+        $this->db->select('*');
+        $this->db->from('transaksi_volume');
+        $this->db->where("DATE_FORMAT(tgl_transaksi,'%Y-%m')", $bulan);
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function hitungUangJarak()
+    {
+        $query = $this->db->query(
+            "SELECT SUM(pembayaran) as total_bayar
+                               FROM transaksi_jarak
+                               WHERE CONCAT(YEAR(tgl_transaksi),'/',MONTH(tgl_transaksi))=CONCAT(YEAR(NOW()),'/',MONTH(NOW()))
+                               "
+        );
+        if ($query->num_rows() > 0) {
+            return $query->row()->total_bayar;
+        } else {
+            return 0;
+        }
+    }
+
+    public function hitungUangVolume()
+    {
+        $query = $this->db->query(
+            "SELECT SUM(pembayaran) as total_bayar
+                               FROM transaksi_volume
+                               WHERE CONCAT(YEAR(tgl_transaksi),'/',MONTH(tgl_transaksi))=CONCAT(YEAR(NOW()),'/',MONTH(NOW()))
+                               "
+        );
+        if ($query->num_rows() > 0) {
+            return $query->row()->total_bayar;
+        } else {
+            return 0;
+        }
+    }
 }

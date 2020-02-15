@@ -79,12 +79,12 @@
                                 <p>Data Tarif</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="<?php echo base_url('spv/mst_biaya'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data BIaya Ops</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
@@ -118,6 +118,38 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-coins"></i>
+                        <p>
+                            Data Keuangan
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="<?php echo base_url('spv/penerimaan'); ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Total Penerimaan</p>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Total Pengeluaran</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rugi Laba</p>
+                            </a>
+                        </li> -->
+                    </ul>
+                </li>
+
 
                 <li class="nav-item">
                     <a href="<?php echo base_url('auth/logout'); ?>" id="tombol-logout" class="nav-link">

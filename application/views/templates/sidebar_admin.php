@@ -79,12 +79,12 @@
                                 <p>Data Tarif</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="<?php echo base_url('admin/mst_biaya'); ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data BIaya Ops</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
@@ -135,7 +135,7 @@
                                 <p>Total Penerimaan</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Total Pengeluaran</p>
@@ -146,7 +146,7 @@
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Rugi Laba</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 

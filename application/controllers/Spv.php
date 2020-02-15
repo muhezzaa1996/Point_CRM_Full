@@ -719,4 +719,19 @@ class spv extends CI_Controller
         $this->load->view('spv/transaksi/pengiriman', $data);
         $this->load->view('templates/footer');
     }
+
+    public function penerimaan()
+    {
+        $data['title'] = 'Penerimaan Bulan Ini';
+        $data['user'] = $this->db->get_where('mst_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['terima_uang'] = $this->spv->getUangMasuk()->result_array();
+        $data['terima_volume'] = $this->spv->getVolumeMasuk()->result_array();
+        $data['uang_jarak'] = $this->spv->hitungUangJarak();
+        $data['uang_volume'] = $this->spv->hitungUangVolume();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar_spv', $data);
+        $this->load->view('spv/keuangan/penerimaan', $data);
+        $this->load->view('templates/footer');
+    }
 }
