@@ -41,7 +41,7 @@
                              <div class="col-md-6">
                                  <div class="table-responsive">
                                      <h5><?php echo $title; ?> Dari Transaksi Berat (Kg)</h5>
-                                     <div class="mb-2 font-weight-bolder">Total Penerimaan Bulan ini : Rp. <?php echo rupiah($uang_jarak); ?></div>
+                                     <div class="mb-5 font-weight-bolder">Total Penerimaan Bulan ini : Rp. <?php echo rupiah($uang_jarak); ?></div>
                                      <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
@@ -68,7 +68,7 @@
                              <div class="col-md-6">
                                  <div class="table-responsive">
                                      <h5><?php echo $title; ?> Dari Transaksi Volume (M<sup>3</sup>)</h5>
-                                     <div class="mb-2 font-weight-bolder">Total Penerimaan Bulan ini : Rp. <?php echo rupiah($uang_volume); ?></div>
+                                     <div class="mb-5 font-weight-bolder">Total Penerimaan Bulan ini : Rp. <?php echo rupiah($uang_volume); ?></div>
                                      <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
