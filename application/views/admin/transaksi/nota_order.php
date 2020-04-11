@@ -39,7 +39,7 @@
                              <div class="col-md-12">
                                  <div class="table-responsive">
                                      <h4>Nota Order Berat</h4>
-                                     <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
+                                     <table class=" table table-bordered table-hover" id="table-data" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
                                              <th>Kode Order</th>
@@ -67,7 +67,7 @@
                              <div class="col-md-12 mt-4">
                                  <div class="table-responsive">
                                      <h4>Nota Order Volume</h4>
-                                     <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
+                                     <table class=" table table-bordered table-hover" id="data-table" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
                                              <th>Kode Order</th>

@@ -129,7 +129,7 @@
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="activity">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-hover" id="table-id" style="font-size:14px;">
+                                            <table class="table table-bordered table-hover" id="table-data" style="font-size:14px;">
                                                 <thead>
                                                     <th>#</th>
                                                     <th>Nama</th>
