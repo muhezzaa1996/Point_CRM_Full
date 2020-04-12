@@ -36,7 +36,7 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <h3 class="login-box-msg pl-0"> E-LOGIN </h3>
+                <h3 class="login-box-msg pl-0"> Logistik E-Login </h3>
                 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
                 <?php echo $this->session->flashdata('msg'); ?>
                 <form action="<?php base_url('auth/index'); ?>" method="post">
