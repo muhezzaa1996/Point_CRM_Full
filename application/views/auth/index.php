@@ -20,15 +20,15 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <style type="text/css">
-    /* body {
-        background: url('<?php echo base_url(); ?>/assets/dist/img/driji.jpg') no-repeat center center fixed;
+    body {
+        background: url('<?php echo base_url(); ?>/assets/img/Logistik.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         background-size: cover;
-    } */
+    }
 </style>
 
-<body class="bg-gray">
+<body>
     <div class="login-box" style="margin-top:12%;margin-bottom:12%">
         <div class="login-logo">
             <!-- <a href="<?php base_url('assets/'); ?>index2.html"><b>Admin</b>LTE</a> -->

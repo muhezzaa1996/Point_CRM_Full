@@ -42,7 +42,7 @@
                          <div class="row">
                              <div class="col-md-12">
                                  <div class="table-responsive">
-                                     <table class=" table table-bordered table-hover" id="table-id" style="font-size:14px;">
+                                     <table class=" table table-bordered table-hover" id="table-data" style="font-size:14px;">
                                          <thead>
                                              <th>#</th>
                                              <th>Kode Order</th>
@@ -131,7 +131,7 @@
              <div class="modal-body">
                  <div class="box-body">
                      <div class="table-responsive">
-                         <table class=" table table-bordered table-hover" id="id-table" style="font-size:14px;">
+                         <table class=" table table-bordered table-hover" id="data-table" style="font-size:14px;">
                              <thead>
                                  <th>#</th>
                                  <th>Kode Order</th>
