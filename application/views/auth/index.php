@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Login Logistik</title>
+    <title>Login CRM Selling - Point </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,7 +21,7 @@
 </head>
 <style type="text/css">
     body {
-        background: url('<?php echo base_url(); ?>/assets/img/Logistik.jpg') no-repeat center center fixed;
+        background: url('<?php echo base_url(); ?>/assets/img/point.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         background-size: cover;
@@ -36,7 +36,7 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <h3 class="login-box-msg pl-0"> Logistik E-Login </h3>
+                <h3 class="login-box-msg pl-0"> CRM Selling Point - Login </h3>
                 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
                 <?php echo $this->session->flashdata('msg'); ?>
                 <form action="<?php base_url('auth/index'); ?>" method="post">

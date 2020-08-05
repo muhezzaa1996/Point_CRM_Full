@@ -62,3 +62,18 @@ function is_user()
         redirect('auth/blocked');
     }
 }
+
+
+function getNoJob($id_project)
+{
+    $ci=& get_instance();
+    $q = $ci->db->query("select * from tb_project where id_project='$id_project'")->row_array();
+    return $q['no_job'];
+}
+
+function getNamaProject($id_project)
+{
+    $ci=& get_instance();
+    $query = $ci->db->query("select * from tb_project where id_project='$id_project'")->row_array();
+    return $query['nama_project'];
+}

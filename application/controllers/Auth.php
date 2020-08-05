@@ -6,8 +6,9 @@ class Auth extends CI_Controller
 
     public function index()
     {
-        $this->form_validation->set_rules('username', 'Username', 'trim|required');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('username', 'Masukan Username Terlebih Dahulu', 'trim|required');
+        $this->form_validation->set_rules('password', 'Masukan Password Terlebih Dahulu', 'trim|required');
+
         if ($this->form_validation->run() == false) {
             $this->load->view('auth/index');
         } else {

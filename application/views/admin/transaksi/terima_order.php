@@ -297,7 +297,8 @@
                                          <option value="">- Pilih -</option>
                                          <?php foreach ($tarif as $t) : ?>
                                              <option value="<?php echo $t['tarif_jarak']; ?>"><?php echo $t['kota_asal']; ?> - <?php echo $t['kota_tujuan']; ?></option>
-                                         <?php endforeach; ?>
+                              
+                                             <?php endforeach; ?>
                                      </select>
                                  </div>
                              </div>
